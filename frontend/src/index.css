@@ -1,0 +1,255 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Charte reprise du portfolio de l'auteur (globals.css) pour une identité commune aux projets. */
+@theme {
+	--color-paper: #f7f3ea;
+	--color-paper-alt: #efe9dc;
+	--color-card: #fffdf8;
+	--color-ink: #16181d;
+	--color-ink-soft: #5c6069;
+	--color-ink-faint: #8a8d95;
+	--color-rust: #b4400f;
+	--color-rust-deep: #8f3009;
+	--color-ember: #e0661c;
+	--color-night: #151c2e;
+	--color-night-soft: #212a40;
+	--color-sun: #f2ce1b;
+	--color-azure: #0f62ce;
+	--color-moss: #4a7a3a;
+	--color-plum: #7b3f8f;
+	--color-kraft: #c9a87c;
+	--color-kraft-deep: #8c6a3f;
+	--color-rule: rgba(22, 24, 29, 0.14);
+	--color-rule-strong: rgba(22, 24, 29, 0.32);
+
+	--font-display: "Archivo", system-ui, sans-serif;
+	--font-sans: "Inter", system-ui, sans-serif;
+	--font-mono: "JetBrains Mono", ui-monospace, monospace;
+	--font-editorial: "Newsreader", Georgia, serif;
+
+	--radius-card: 3px;
+	--radius-btn: 6px;
+
+	--shadow-card: 0 1px 1px rgba(22, 24, 29, 0.05), 0 10px 24px -14px rgba(22, 24, 29, 0.35);
+	--shadow-lift: 0 2px 3px rgba(22, 24, 29, 0.06), 0 22px 40px -20px rgba(22, 24, 29, 0.45);
+	--shadow-hard: 3px 3px 0 rgba(22, 24, 29, 0.24);
+	--shadow-hard-sm: 1px 1px 0 rgba(22, 24, 29, 0.24);
+
+	--ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+	--animate-fade-in: reveal-in 0.5s var(--ease-out-soft) both;
+	--animate-pin-drop: pin-drop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+:root {
+	--pattern-grain-1: rgba(22, 24, 29, 0.05);
+	--pattern-grain-2: rgba(22, 24, 29, 0.035);
+	--pattern-grid: rgba(22, 24, 29, 0.055);
+	--pattern-rule: rgba(22, 24, 29, 0.07);
+	color-scheme: light;
+}
+
+.dark {
+	--color-paper: #12151c;
+	--color-paper-alt: #171b24;
+	--color-card: #1b202b;
+	--color-ink: #f1efe8;
+	--color-ink-soft: #b6bac4;
+	--color-ink-faint: #7e8492;
+	--color-night: #090b10;
+	--color-night-soft: #141821;
+	--color-rule: rgba(255, 255, 255, 0.12);
+	--color-rule-strong: rgba(255, 255, 255, 0.26);
+	--shadow-card: 0 1px 1px rgba(0, 0, 0, 0.4), 0 10px 24px -14px rgba(0, 0, 0, 0.65);
+	--shadow-lift: 0 2px 3px rgba(0, 0, 0, 0.5), 0 22px 40px -20px rgba(0, 0, 0, 0.75);
+	--pattern-grain-1: rgba(255, 255, 255, 0.045);
+	--pattern-grain-2: rgba(255, 255, 255, 0.03);
+	--pattern-grid: rgba(255, 255, 255, 0.05);
+	--pattern-rule: rgba(255, 255, 255, 0.08);
+	color-scheme: dark;
+}
+
+@layer base {
+	html {
+		-webkit-text-size-adjust: 100%;
+		text-size-adjust: 100%;
+	}
+
+	body {
+		background-color: var(--color-paper);
+		color: var(--color-ink);
+		font-family: var(--font-sans);
+		font-synthesis-weight: none;
+		text-rendering: optimizeLegibility;
+		overflow-x: hidden;
+	}
+
+	::selection {
+		background-color: var(--color-sun);
+		color: #16181d;
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--color-rust);
+		outline-offset: 3px;
+		border-radius: 2px;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		font-family: var(--font-display);
+		font-weight: 800;
+		letter-spacing: -0.02em;
+		text-wrap: balance;
+	}
+
+	p {
+		text-wrap: pretty;
+	}
+}
+
+@utility paper-grain {
+	background-image:
+		radial-gradient(var(--pattern-grain-1) 1px, transparent 1px),
+		radial-gradient(var(--pattern-grain-2) 1px, transparent 1px);
+	background-size: 22px 22px, 37px 37px;
+	background-position: 0 0, 11px 13px;
+}
+
+@utility grid-paper {
+	background-image:
+		linear-gradient(to right, var(--pattern-grid) 1px, transparent 1px),
+		linear-gradient(to bottom, var(--pattern-grid) 1px, transparent 1px);
+	background-size: 26px 26px;
+}
+
+@utility night-grid {
+	background-image:
+		linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+	background-size: 34px 34px;
+}
+
+@utility sticky-note {
+	position: relative;
+	box-shadow:
+		0 1px 1px rgba(22, 24, 29, 0.1),
+		0 8px 14px -10px rgba(22, 24, 29, 0.45);
+	background-image: linear-gradient(160deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 55%);
+}
+
+@utility eyebrow {
+	font-family: var(--font-editorial);
+	font-style: italic;
+	font-size: 1.0625rem;
+	letter-spacing: 0.01em;
+	color: var(--color-ink-soft);
+}
+
+@utility label-mono {
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+	font-weight: 500;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+@utility shell {
+	width: 100%;
+	max-width: 78rem;
+	margin-inline: auto;
+	padding-inline: 1.25rem;
+
+	@media (min-width: 640px) {
+		padding-inline: 2rem;
+	}
+
+	@media (min-width: 1280px) {
+		padding-inline: 2.5rem;
+	}
+}
+
+@utility paper-card {
+	border-radius: var(--radius-card);
+	border: 1px solid var(--color-rule);
+	background-color: var(--color-card);
+	box-shadow: var(--shadow-card);
+}
+
+@utility field {
+	width: 100%;
+	border-radius: var(--radius-btn);
+	border: 1px solid var(--color-rule-strong);
+	background-color: var(--color-card);
+	padding: 0.7rem 1rem;
+	font-size: 0.9375rem;
+	color: var(--color-ink);
+	outline: none;
+	transition: border-color 0.2s var(--ease-out-soft), box-shadow 0.2s var(--ease-out-soft);
+
+	&::placeholder {
+		color: var(--color-ink-faint);
+	}
+
+	&:focus {
+		border-color: var(--color-ink);
+		box-shadow: var(--shadow-hard-sm);
+	}
+}
+
+@keyframes reveal-in {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 14px, 0);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes pin-drop {
+	from {
+		opacity: 0;
+		transform: scale(0.2);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes blink-soft {
+	0%,
+	100% {
+		opacity: 0.25;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
+.thinking-dot {
+	animation: blink-soft 1.2s ease-in-out infinite;
+}
+
+mark {
+	background-color: color-mix(in srgb, var(--color-sun) 55%, transparent);
+	color: inherit;
+	border-radius: 2px;
+	padding: 0 0.1em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-delay: 0ms !important;
+		transition-duration: 0.001ms !important;
+	}
+}

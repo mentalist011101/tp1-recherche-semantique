@@ -1,0 +1,3681 @@
+{
+ "generated_at": "2026-10-01 15:48:54",
+ "corpus": {
+  "passages": 439,
+  "questions": 65
+ },
+ "configs": [
+  {
+   "name": "bm25",
+   "label": "BM25 (lexical)",
+   "overall": {
+    "success@1": 0.5439,
+    "success@3": 0.7368,
+    "success@5": 0.7895,
+    "success@10": 0.8246,
+    "mrr@10": 0.6504,
+    "ndcg@10": 0.5402
+   },
+   "by_category": {
+    "lexical": {
+     "success@1": 0.7692,
+     "success@3": 0.9231,
+     "success@5": 0.9231,
+     "success@10": 1.0,
+     "mrr@10": 0.8571,
+     "ndcg@10": 0.8426
+    },
+    "paraphrase": {
+     "success@1": 0.4375,
+     "success@3": 0.5625,
+     "success@5": 0.6875,
+     "success@10": 0.75,
+     "mrr@10": 0.5247,
+     "ndcg@10": 0.3584
+    },
+    "acronyme": {
+     "success@1": 0.4286,
+     "success@3": 0.8571,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 0.6476,
+     "ndcg@10": 0.6075
+    },
+    "cross-lingue": {
+     "success@1": 0.5,
+     "success@3": 0.7,
+     "success@5": 0.7,
+     "success@10": 0.7,
+     "mrr@10": 0.6,
+     "ndcg@10": 0.3818
+    },
+    "faute": {
+     "success@1": 0.6,
+     "success@3": 0.8,
+     "success@5": 0.8,
+     "success@10": 0.8,
+     "mrr@10": 0.7,
+     "ndcg@10": 0.5818
+    },
+    "raisonnement": {
+     "success@1": 0.5,
+     "success@3": 0.6667,
+     "success@5": 0.6667,
+     "success@10": 0.6667,
+     "mrr@10": 0.5833,
+     "ndcg@10": 0.5202
+    }
+   },
+   "latency_ms": {
+    "p50": 0.2,
+    "p95": 0.7,
+    "steps_p50": {
+     "bm25": 0.1
+    }
+   }
+  },
+  {
+   "name": "dense-minilm",
+   "label": "Dense MiniLM-L12",
+   "overall": {
+    "success@1": 0.6316,
+    "success@3": 0.7018,
+    "success@5": 0.7719,
+    "success@10": 0.8246,
+    "mrr@10": 0.6838,
+    "ndcg@10": 0.5594
+   },
+   "by_category": {
+    "lexical": {
+     "success@1": 0.8462,
+     "success@3": 0.8462,
+     "success@5": 0.9231,
+     "success@10": 0.9231,
+     "mrr@10": 0.8654,
+     "ndcg@10": 0.7453
+    },
+    "paraphrase": {
+     "success@1": 0.1875,
+     "success@3": 0.3125,
+     "success@5": 0.4375,
+     "success@10": 0.625,
+     "mrr@10": 0.2903,
+     "ndcg@10": 0.2404
+    },
+    "acronyme": {
+     "success@1": 0.7143,
+     "success@3": 0.8571,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 0.8214,
+     "ndcg@10": 0.4979
+    },
+    "cross-lingue": {
+     "success@1": 0.9,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 0.9333,
+     "ndcg@10": 0.8094
+    },
+    "faute": {
+     "success@1": 0.6,
+     "success@3": 0.6,
+     "success@5": 0.6,
+     "success@10": 0.6,
+     "mrr@10": 0.6,
+     "ndcg@10": 0.4956
+    },
+    "raisonnement": {
+     "success@1": 0.8333,
+     "success@3": 0.8333,
+     "success@5": 0.8333,
+     "success@10": 0.8333,
+     "mrr@10": 0.8333,
+     "ndcg@10": 0.7158
+    }
+   },
+   "latency_ms": {
+    "p50": 1739.9,
+    "p95": 33560.6,
+    "steps_p50": {
+     "embedding": 1738.3
+    }
+   }
+  },
+  {
+   "name": "dense-e5-small",
+   "label": "Dense e5-small",
+   "overall": {
+    "success@1": 0.7193,
+    "success@3": 0.8421,
+    "success@5": 0.8772,
+    "success@10": 0.9123,
+    "mrr@10": 0.7944,
+    "ndcg@10": 0.6748
+   },
+   "by_category": {
+    "lexical": {
+     "success@1": 0.9231,
+     "success@3": 0.9231,
+     "success@5": 0.9231,
+     "success@10": 1.0,
+     "mrr@10": 0.9359,
+     "ndcg@10": 0.8832
+    },
+    "paraphrase": {
+     "success@1": 0.3125,
+     "success@3": 0.5625,
+     "success@5": 0.6875,
+     "success@10": 0.75,
+     "mrr@10": 0.476,
+     "ndcg@10": 0.3158
+    },
+    "acronyme": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.7376
+    },
+    "cross-lingue": {
+     "success@1": 0.9,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 0.95,
+     "ndcg@10": 0.8269
+    },
+    "faute": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.8956
+    },
+    "raisonnement": {
+     "success@1": 0.5,
+     "success@3": 0.8333,
+     "success@5": 0.8333,
+     "success@10": 0.8333,
+     "mrr@10": 0.6667,
+     "ndcg@10": 0.6702
+    }
+   },
+   "latency_ms": {
+    "p50": 1602.2,
+    "p95": 9973.9,
+    "steps_p50": {
+     "embedding": 1601.7
+    }
+   }
+  },
+  {
+   "name": "dense-gemini",
+   "label": "Dense Gemini Embedding 2",
+   "overall": {
+    "success@1": 0.9474,
+    "success@3": 1.0,
+    "success@5": 1.0,
+    "success@10": 1.0,
+    "mrr@10": 0.9737,
+    "ndcg@10": 0.9102
+   },
+   "by_category": {
+    "lexical": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.9611
+    },
+    "paraphrase": {
+     "success@1": 0.8125,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 0.9062,
+     "ndcg@10": 0.8198
+    },
+    "acronyme": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.8825
+    },
+    "cross-lingue": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.9672
+    },
+    "faute": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.9495
+    },
+    "raisonnement": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.9459
+    }
+   },
+   "latency_ms": {
+    "p50": 1560.2,
+    "p95": 3549.1,
+    "steps_p50": {
+     "embedding": 1559.2
+    }
+   }
+  },
+  {
+   "name": "hybrid-naive",
+   "label": "Hybride RRF sans routage",
+   "overall": {
+    "success@1": 0.7193,
+    "success@3": 0.9123,
+    "success@5": 0.9298,
+    "success@10": 0.9649,
+    "mrr@10": 0.8158,
+    "ndcg@10": 0.7237
+   },
+   "by_category": {
+    "lexical": {
+     "success@1": 0.8462,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 0.9103,
+     "ndcg@10": 0.8807
+    },
+    "paraphrase": {
+     "success@1": 0.5625,
+     "success@3": 0.8125,
+     "success@5": 0.8125,
+     "success@10": 0.875,
+     "mrr@10": 0.6849,
+     "ndcg@10": 0.5208
+    },
+    "acronyme": {
+     "success@1": 0.8571,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 0.9286,
+     "ndcg@10": 0.7981
+    },
+    "cross-lingue": {
+     "success@1": 0.7,
+     "success@3": 0.9,
+     "success@5": 0.9,
+     "success@10": 1.0,
+     "mrr@10": 0.8125,
+     "ndcg@10": 0.7229
+    },
+    "faute": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.878
+    },
+    "raisonnement": {
+     "success@1": 0.5,
+     "success@3": 0.8333,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 0.6806,
+     "ndcg@10": 0.711
+    }
+   },
+   "latency_ms": {
+    "p50": 0.7,
+    "p95": 5.9,
+    "steps_p50": {
+     "bm25": 0.2,
+     "embedding": 0.0
+    }
+   }
+  },
+  {
+   "name": "hybrid",
+   "label": "Hybride RRF",
+   "overall": {
+    "success@1": 0.7719,
+    "success@3": 0.9298,
+    "success@5": 0.9474,
+    "success@10": 0.9649,
+    "mrr@10": 0.8487,
+    "ndcg@10": 0.7666
+   },
+   "by_category": {
+    "lexical": {
+     "success@1": 0.8462,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 0.9103,
+     "ndcg@10": 0.8807
+    },
+    "paraphrase": {
+     "success@1": 0.5625,
+     "success@3": 0.8125,
+     "success@5": 0.8125,
+     "success@10": 0.875,
+     "mrr@10": 0.6849,
+     "ndcg@10": 0.5208
+    },
+    "acronyme": {
+     "success@1": 0.8571,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 0.9286,
+     "ndcg@10": 0.7981
+    },
+    "cross-lingue": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.9672
+    },
+    "faute": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.878
+    },
+    "raisonnement": {
+     "success@1": 0.5,
+     "success@3": 0.8333,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 0.6806,
+     "ndcg@10": 0.711
+    }
+   },
+   "latency_ms": {
+    "p50": 0.5,
+    "p95": 0.8,
+    "steps_p50": {
+     "bm25": 0.2,
+     "embedding": 0.0
+    }
+   }
+  },
+  {
+   "name": "hybrid-rerank",
+   "label": "Hybride + reranking",
+   "overall": {
+    "success@1": 0.807,
+    "success@3": 0.8947,
+    "success@5": 0.9298,
+    "success@10": 0.9649,
+    "mrr@10": 0.8538,
+    "ndcg@10": 0.7439
+   },
+   "by_category": {
+    "lexical": {
+     "success@1": 0.9231,
+     "success@3": 0.9231,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 0.9385,
+     "ndcg@10": 0.9082
+    },
+    "paraphrase": {
+     "success@1": 0.5625,
+     "success@3": 0.75,
+     "success@5": 0.8125,
+     "success@10": 0.875,
+     "mrr@10": 0.6464,
+     "ndcg@10": 0.4586
+    },
+    "acronyme": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.7967
+    },
+    "cross-lingue": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.8824
+    },
+    "faute": {
+     "success@1": 1.0,
+     "success@3": 1.0,
+     "success@5": 1.0,
+     "success@10": 1.0,
+     "mrr@10": 1.0,
+     "ndcg@10": 0.9316
+    },
+    "raisonnement": {
+     "success@1": 0.5,
+     "success@3": 0.8333,
+     "success@5": 0.8333,
+     "success@10": 1.0,
+     "mrr@10": 0.6875,
+     "ndcg@10": 0.6998
+    }
+   },
+   "latency_ms": {
+    "p50": 6090.3,
+    "p95": 21979.5,
+    "steps_p50": {
+     "bm25": 0.8,
+     "embedding": 0.0,
+     "rerank": 6081.3
+    }
+   }
+  }
+ ],
+ "abstention": {
+  "dense": {
+   "threshold": 0.6431,
+   "balanced_accuracy": 1.0,
+   "leave_one_out_accuracy": 1.0,
+   "in_domain_scores": [
+    0.698,
+    0.7137,
+    0.7145,
+    0.7262,
+    0.7357,
+    0.7365,
+    0.7382,
+    0.7395,
+    0.74,
+    0.7403,
+    0.7542,
+    0.7583,
+    0.7586,
+    0.7599,
+    0.77,
+    0.7714,
+    0.7717,
+    0.7723,
+    0.778,
+    0.7783,
+    0.7848,
+    0.7848,
+    0.7849,
+    0.7866,
+    0.7872,
+    0.7878,
+    0.7906,
+    0.7918,
+    0.7931,
+    0.7939,
+    0.794,
+    0.7972,
+    0.7972,
+    0.7973,
+    0.801,
+    0.8011,
+    0.8014,
+    0.8049,
+    0.8077,
+    0.8078,
+    0.8086,
+    0.81,
+    0.8111,
+    0.8167,
+    0.8193,
+    0.8195,
+    0.8239,
+    0.826,
+    0.8317,
+    0.8325,
+    0.8338,
+    0.8374,
+    0.8419,
+    0.8428,
+    0.8432,
+    0.8465,
+    0.8542
+   ],
+   "out_of_domain_scores": [
+    0.5345,
+    0.5484,
+    0.5499,
+    0.5646,
+    0.5803,
+    0.5844,
+    0.5856,
+    0.5883
+   ]
+  },
+  "rerank": {
+   "threshold": -5.9963,
+   "balanced_accuracy": 1.0,
+   "leave_one_out_accuracy": 1.0,
+   "in_domain_scores": [
+    -3.9582,
+    -3.6083,
+    -3.2022,
+    -3.1791,
+    -3.1088,
+    -2.5384,
+    -0.8877,
+    -0.7198,
+    -0.6088,
+    -0.5817,
+    -0.4808,
+    -0.3661,
+    -0.2844,
+    -0.2303,
+    -0.2074,
+    0.0301,
+    0.2327,
+    0.3002,
+    0.4205,
+    0.5041,
+    0.5322,
+    0.8221,
+    1.3007,
+    1.6667,
+    1.6788,
+    1.7421,
+    1.8314,
+    1.8912,
+    2.2263,
+    2.3988,
+    2.5005,
+    2.73,
+    2.8954,
+    3.1743,
+    3.4169,
+    3.722,
+    3.7963,
+    3.8653,
+    4.2519,
+    4.3602,
+    4.4919,
+    4.8161,
+    4.9179,
+    5.0667,
+    5.2926,
+    5.5035,
+    5.6237,
+    5.8313,
+    5.9663,
+    5.9817,
+    6.4305,
+    7.865,
+    8.139,
+    8.1785,
+    9.5618,
+    9.6085,
+    9.7958
+   ],
+   "out_of_domain_scores": [
+    -10.9634,
+    -10.9109,
+    -10.3265,
+    -10.1135,
+    -9.9896,
+    -9.7444,
+    -8.0713,
+    -8.0343
+   ]
+  }
+ },
+ "questions": [
+  {
+   "id": "q01",
+   "category": "lexical",
+   "question": "Qu'est-ce que le TF-IDF ?",
+   "relevant": [
+    "wiki:tf-idf",
+    "inf5101:p15"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8464630246162415,
+   "rerank_score": 9.561811447143555,
+   "top": [
+    {
+     "id": "wiki:tf-idf#0",
+     "title": "TF-IDF",
+     "relevant": true
+    },
+    {
+     "id": "wiki:tf-idf#3",
+     "title": "TF-IDF — Applications",
+     "relevant": true
+    },
+    {
+     "id": "wiki:similarité-cosinus#2",
+     "title": "Similarité cosinus — Dans le cas d'une comparaison de documents textuels",
+     "relevant": false
+    },
+    {
+     "id": "wiki:tf-idf#1",
+     "title": "TF-IDF — Introduction",
+     "relevant": true
+    },
+    {
+     "id": "wiki:tf-idf#2",
+     "title": "TF-IDF — Fréquence du terme",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q02",
+   "category": "lexical",
+   "question": "Quelles sont les étapes clés d'un RAG ?",
+   "relevant": [
+    "inf5101:p20",
+    "wiki:génération-à-enrichissement-contextuel#5",
+    "wiki:génération-à-enrichissement-contextuel#6",
+    "wiki:génération-à-enrichissement-contextuel#7"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8324792385101318,
+   "rerank_score": 5.5034990310668945,
+   "top": [
+    {
+     "id": "inf5101:p20",
+     "title": "RAG : recherche + génération",
+     "relevant": true
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#6",
+     "title": "Génération à enrichissement contextuel — Étapes clés de la RAG",
+     "relevant": true
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#7",
+     "title": "Génération à enrichissement contextuel — Étapes clés de la RAG",
+     "relevant": true
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#8",
+     "title": "Génération à enrichissement contextuel — Améliorations",
+     "relevant": false
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#0",
+     "title": "Génération à enrichissement contextuel",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q03",
+   "category": "lexical",
+   "question": "Comment fonctionne la segmentation sémantique d'une image ?",
+   "relevant": [
+    "inf5101:p31",
+    "wiki:segmentation-d-image"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7847862243652344,
+   "rerank_score": 6.430513858795166,
+   "top": [
+    {
+     "id": "wiki:segmentation-d-image#0",
+     "title": "Segmentation d'image",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p31",
+     "title": "Segmentation d'images",
+     "relevant": true
+    },
+    {
+     "id": "wiki:segmentation-d-image#1",
+     "title": "Segmentation d'image — Segmentation par régions",
+     "relevant": true
+    },
+    {
+     "id": "wiki:segmentation-d-image#2",
+     "title": "Segmentation d'image — Segmentation par régions",
+     "relevant": true
+    },
+    {
+     "id": "wiki:segmentation-d-image#4",
+     "title": "Segmentation d'image — Segmentation par contours",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q04",
+   "category": "lexical",
+   "question": "Quelle fréquence d'échantillonnage utilise-t-on pour la parole ?",
+   "relevant": [
+    "inf5101:p40",
+    "inf5101:p10",
+    "wiki:échantillonnage-signal#4"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 4,
+    "dense-e5-small": 6,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7582892179489136,
+   "rerank_score": 2.8953773975372314,
+   "top": [
+    {
+     "id": "inf5101:p40",
+     "title": "Audio numérique : signal temporel",
+     "relevant": true
+    },
+    {
+     "id": "wiki:échantillonnage-signal#4",
+     "title": "Échantillonnage (signal) — Cadence d'échantillonnage",
+     "relevant": true
+    },
+    {
+     "id": "wiki:échantillonnage-signal#5",
+     "title": "Échantillonnage (signal) — Cadence d'échantillonnage",
+     "relevant": false
+    },
+    {
+     "id": "wiki:échantillonnage-signal#6",
+     "title": "Échantillonnage (signal) — Cadence d'échantillonnage",
+     "relevant": false
+    },
+    {
+     "id": "wiki:échantillonnage-signal#3",
+     "title": "Échantillonnage (signal) — Généralités",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q05",
+   "category": "lexical",
+   "question": "Qu'est-ce que la diarisation ?",
+   "relevant": [
+    "inf5101:p48",
+    "inf5101:p50"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7971755266189575,
+   "rerank_score": 1.8313989639282227,
+   "top": [
+    {
+     "id": "inf5101:p48",
+     "title": "Diarisation et identification du locuteur",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p50",
+     "title": "Exemple : analyse d'appels clients",
+     "relevant": true
+    },
+    {
+     "id": "wiki:synthèse-vocale#0",
+     "title": "Synthèse vocale",
+     "relevant": false
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#0",
+     "title": "Reconnaissance automatique de la parole",
+     "relevant": false
+    },
+    {
+     "id": "wiki:sous-titrage#0",
+     "title": "Sous-titrage",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q06",
+   "category": "lexical",
+   "question": "Quelles architectures CNN sont importantes ?",
+   "relevant": [
+    "inf5101:p30"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8427947759628296,
+   "rerank_score": 3.4168543815612793,
+   "top": [
+    {
+     "id": "inf5101:p30",
+     "title": "Architectures CNN importantes",
+     "relevant": true
+    },
+    {
+     "id": "wiki:réseau-neuronal-convolutif#0",
+     "title": "Réseau neuronal convolutif",
+     "relevant": false
+    },
+    {
+     "id": "wiki:réseau-neuronal-convolutif#8",
+     "title": "Réseau neuronal convolutif — Le néocognitron",
+     "relevant": false
+    },
+    {
+     "id": "wiki:réseau-neuronal-convolutif#5",
+     "title": "Réseau neuronal convolutif — Caractéristiques et avantages",
+     "relevant": false
+    },
+    {
+     "id": "wiki:réseau-neuronal-convolutif#7",
+     "title": "Réseau neuronal convolutif — Le néocognitron",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q07",
+   "category": "lexical",
+   "question": "Que sont les MFCC ?",
+   "relevant": [
+    "inf5101:p42",
+    "wiki:cepstre#2"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8317121267318726,
+   "rerank_score": 4.816056251525879,
+   "top": [
+    {
+     "id": "wiki:cepstre#2",
+     "title": "Cepstre — MFCC",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p42",
+     "title": "MFCC et échelle Mel",
+     "relevant": true
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#5",
+     "title": "Reconnaissance automatique de la parole — Étapes",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p44",
+     "title": "Classification audio",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p51",
+     "title": "Travaux pratiques audio",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q08",
+   "category": "lexical",
+   "question": "Comment évaluer un système RAG ?",
+   "relevant": [
+    "inf5101:p22"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": null,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7586359977722168,
+   "rerank_score": 0.4204901158809662,
+   "top": [
+    {
+     "id": "inf5101:p22",
+     "title": "Évaluer un modèle de texte",
+     "relevant": true
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#0",
+     "title": "Génération à enrichissement contextuel",
+     "relevant": false
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#6",
+     "title": "Génération à enrichissement contextuel — Étapes clés de la RAG",
+     "relevant": false
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#8",
+     "title": "Génération à enrichissement contextuel — Améliorations",
+     "relevant": false
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#1",
+     "title": "Génération à enrichissement contextuel",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q09",
+   "category": "lexical",
+   "question": "Qu'est-ce que le flux optique ?",
+   "relevant": [
+    "inf5101:p55",
+    "wiki:flux-optique"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8238688707351685,
+   "rerank_score": 9.608515739440918,
+   "top": [
+    {
+     "id": "wiki:flux-optique#0",
+     "title": "Flux optique",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p55",
+     "title": "Mouvement : optical flow et trajectoires",
+     "relevant": true
+    },
+    {
+     "id": "wiki:vision-par-ordinateur#2",
+     "title": "Vision par ordinateur — Histoire",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vision-par-ordinateur#4",
+     "title": "Vision par ordinateur — Histoire",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p56",
+     "title": "3D CNN et two-stream networks",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q10",
+   "category": "lexical",
+   "question": "Quels sont les modèles génératifs d'images ?",
+   "relevant": [
+    "inf5101:p35",
+    "wiki:réseaux-antagonistes-génératifs#0"
+   ],
+   "first_relevant_rank": {
+    "bm25": 2,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 2,
+    "hybrid": 2,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8418828248977661,
+   "rerank_score": 5.292608261108398,
+   "top": [
+    {
+     "id": "inf5101:p35",
+     "title": "Modèles génératifs d'images",
+     "relevant": true
+    },
+    {
+     "id": "wiki:intelligence-artificielle-générative#2",
+     "title": "Intelligence artificielle générative — Vocabulaire",
+     "relevant": false
+    },
+    {
+     "id": "wiki:intelligence-artificielle-générative#6",
+     "title": "Intelligence artificielle générative — Réseaux de neurones génératifs (depuis la fin des années 2000)",
+     "relevant": false
+    },
+    {
+     "id": "wiki:réseaux-antagonistes-génératifs#0",
+     "title": "Réseaux antagonistes génératifs",
+     "relevant": true
+    },
+    {
+     "id": "wiki:intelligence-artificielle-générative#0",
+     "title": "Intelligence artificielle générative",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q11",
+   "category": "lexical",
+   "question": "Quelles métriques pour la détection d'objets ?",
+   "relevant": [
+    "inf5101:p32"
+   ],
+   "first_relevant_rank": {
+    "bm25": 7,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 3,
+    "hybrid": 3,
+    "hybrid-rerank": 5
+   },
+   "confidence": 0.7939664721488953,
+   "rerank_score": 1.8912010192871094,
+   "top": [
+    {
+     "id": "wiki:détection-d-objet#0",
+     "title": "Détection d'objet",
+     "relevant": false
+    },
+    {
+     "id": "wiki:détection-d-objet#4",
+     "title": "Détection d'objet — Méthodes spécifiques",
+     "relevant": false
+    },
+    {
+     "id": "wiki:détection-d-objet#1",
+     "title": "Détection d'objet — Problématique",
+     "relevant": false
+    },
+    {
+     "id": "wiki:détection-d-objet#3",
+     "title": "Détection d'objet — Approche générale",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p32",
+     "title": "Détection d'objets",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q12",
+   "category": "lexical",
+   "question": "Qu'est-ce que la racinisation ?",
+   "relevant": [
+    "wiki:racinisation"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7930651903152466,
+   "rerank_score": 8.139012336730957,
+   "top": [
+    {
+     "id": "wiki:racinisation#0",
+     "title": "Racinisation",
+     "relevant": true
+    },
+    {
+     "id": "wiki:racinisation#1",
+     "title": "Racinisation",
+     "relevant": true
+    },
+    {
+     "id": "wiki:racinisation#8",
+     "title": "Racinisation — Racinisation vs. lemmatisation",
+     "relevant": true
+    },
+    {
+     "id": "wiki:racinisation#2",
+     "title": "Racinisation — Exemples",
+     "relevant": true
+    },
+    {
+     "id": "wiki:racinisation#9",
+     "title": "Racinisation — Racinisation vs. lemmatisation",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q13",
+   "category": "lexical",
+   "question": "Quel est le principe de l'algorithme de Cooley-Tukey ?",
+   "relevant": [
+    "wiki:transformation-de-fourier-rapide#5",
+    "wiki:transformation-de-fourier-rapide#6"
+   ],
+   "first_relevant_rank": {
+    "bm25": 2,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8194690942764282,
+   "rerank_score": 4.360159873962402,
+   "top": [
+    {
+     "id": "wiki:transformation-de-fourier-rapide#5",
+     "title": "Transformation de Fourier rapide — Algorithme de Cooley-Tukey",
+     "relevant": true
+    },
+    {
+     "id": "wiki:transformation-de-fourier-rapide#6",
+     "title": "Transformation de Fourier rapide — Détail d'un cas classique : n1 = 2",
+     "relevant": true
+    },
+    {
+     "id": "wiki:transformation-de-fourier-rapide#0",
+     "title": "Transformation de Fourier rapide",
+     "relevant": false
+    },
+    {
+     "id": "wiki:transformation-de-fourier-rapide#4",
+     "title": "Transformation de Fourier rapide — Histoire",
+     "relevant": false
+    },
+    {
+     "id": "wiki:transformation-de-fourier-rapide#9",
+     "title": "Transformation de Fourier rapide — Algorithmes spécialisés dans le traitement de données réelles ou/et symétriques",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q14",
+   "category": "paraphrase",
+   "question": "Comment un modèle peut-il savoir qui prend la parole à quel moment dans un enregistrement ?",
+   "relevant": [
+    "inf5101:p48"
+   ],
+   "first_relevant_rank": {
+    "bm25": 4,
+    "dense-minilm": 7,
+    "dense-e5-small": 6,
+    "dense-gemini": 1,
+    "hybrid-naive": 2,
+    "hybrid": 2,
+    "hybrid-rerank": 5
+   },
+   "confidence": 0.7599032521247864,
+   "rerank_score": -0.20736102759838104,
+   "top": [
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#6",
+     "title": "Reconnaissance automatique de la parole — Matériel technique",
+     "relevant": false
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#8",
+     "title": "Reconnaissance automatique de la parole — Classification",
+     "relevant": false
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#5",
+     "title": "Reconnaissance automatique de la parole — Étapes",
+     "relevant": false
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#0",
+     "title": "Reconnaissance automatique de la parole",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p48",
+     "title": "Diarisation et identification du locuteur",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q15",
+   "category": "paraphrase",
+   "question": "Comment représenter le sens d'une phrase sous forme de nombres ?",
+   "relevant": [
+    "inf5101:p16",
+    "wiki:word-embedding"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 7,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8009592294692993,
+   "rerank_score": 2.3987550735473633,
+   "top": [
+    {
+     "id": "wiki:word-embedding#0",
+     "title": "Word embedding",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p16",
+     "title": "Embeddings : représenter le sens par des vecteurs",
+     "relevant": true
+    },
+    {
+     "id": "wiki:bert-modèle-de-langage#0",
+     "title": "BERT (modèle de langage) — Description du modèle",
+     "relevant": false
+    },
+    {
+     "id": "wiki:sac-de-mots#0",
+     "title": "Sac de mots — Principe général",
+     "relevant": false
+    },
+    {
+     "id": "wiki:word-embedding#3",
+     "title": "Word embedding — Historique et contexte",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q16",
+   "category": "paraphrase",
+   "question": "Pourquoi les machines ne comprennent-elles pas directement les mots ?",
+   "relevant": [
+    "inf5101:p14",
+    "wiki:word-embedding#1"
+   ],
+   "first_relevant_rank": {
+    "bm25": 2,
+    "dense-minilm": null,
+    "dense-e5-small": 2,
+    "dense-gemini": 2,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7399619817733765,
+   "rerank_score": -0.6087563037872314,
+   "top": [
+    {
+     "id": "wiki:word-embedding#1",
+     "title": "Word embedding — Introduction",
+     "relevant": true
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#1",
+     "title": "Reconnaissance automatique de la parole",
+     "relevant": false
+    },
+    {
+     "id": "wiki:word-embedding#2",
+     "title": "Word embedding — Introduction",
+     "relevant": false
+    },
+    {
+     "id": "wiki:attention-apprentissage-automatique#1",
+     "title": "Attention (apprentissage automatique)",
+     "relevant": false
+    },
+    {
+     "id": "wiki:word-embedding#0",
+     "title": "Word embedding",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q17",
+   "category": "paraphrase",
+   "question": "Comment produire de nouvelles images d'entraînement à partir des images existantes ?",
+   "relevant": [
+    "inf5101:p27",
+    "wiki:augmentation-de-données"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 3,
+    "dense-e5-small": 2,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7905703783035278,
+   "rerank_score": -0.7198308110237122,
+   "top": [
+    {
+     "id": "wiki:augmentation-de-données#2",
+     "title": "Augmentation de données — Transformation géométrique",
+     "relevant": true
+    },
+    {
+     "id": "wiki:modèle-de-fondation#4",
+     "title": "Modèle de fondation — Entraînement",
+     "relevant": false
+    },
+    {
+     "id": "wiki:modèle-de-fondation#5",
+     "title": "Modèle de fondation — Entraînement",
+     "relevant": false
+    },
+    {
+     "id": "wiki:augmentation-de-données#3",
+     "title": "Augmentation de données — Transformation basée morphing",
+     "relevant": true
+    },
+    {
+     "id": "wiki:modèle-de-fondation#3",
+     "title": "Modèle de fondation — Entraînement",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q18",
+   "category": "paraphrase",
+   "question": "Comment transformer un enregistrement de voix en texte écrit ?",
+   "relevant": [
+    "inf5101:p45",
+    "inf5101:p47",
+    "wiki:reconnaissance-automatique-de-la-parole"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 5,
+    "dense-e5-small": 5,
+    "dense-gemini": 2,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 3
+   },
+   "confidence": 0.714464545249939,
+   "rerank_score": -0.48076051473617554,
+   "top": [
+    {
+     "id": "wiki:synthèse-vocale#0",
+     "title": "Synthèse vocale",
+     "relevant": false
+    },
+    {
+     "id": "wiki:synthèse-vocale#5",
+     "title": "Synthèse vocale — Transcription phonétique",
+     "relevant": false
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#0",
+     "title": "Reconnaissance automatique de la parole",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p45",
+     "title": "Reconnaissance automatique de la parole",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p49",
+     "title": "Audio génératif",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q19",
+   "category": "paraphrase",
+   "question": "Comment visualiser le contenu fréquentiel d'un son au cours du temps ?",
+   "relevant": [
+    "inf5101:p41",
+    "wiki:spectrogramme",
+    "wiki:transformée-de-fourier-à-court-terme"
+   ],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": 8,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 3,
+    "hybrid": 3,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7972686290740967,
+   "rerank_score": -3.60830020904541,
+   "top": [
+    {
+     "id": "inf5101:p41",
+     "title": "Spectrogramme : voir le son",
+     "relevant": true
+    },
+    {
+     "id": "wiki:spectrogramme#1",
+     "title": "Spectrogramme — Sonagramme",
+     "relevant": true
+    },
+    {
+     "id": "wiki:transformation-de-fourier-rapide#1",
+     "title": "Transformation de Fourier rapide",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p40",
+     "title": "Audio numérique : signal temporel",
+     "relevant": false
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#5",
+     "title": "Reconnaissance automatique de la parole — Étapes",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q20",
+   "category": "paraphrase",
+   "question": "Comment entraîner un modèle sans étiquettes faites à la main ?",
+   "relevant": [
+    "inf5101:p34",
+    "inf5101:p46",
+    "wiki:apprentissage-auto-supervisé"
+   ],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": 2,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": null,
+    "hybrid": null,
+    "hybrid-rerank": 3
+   },
+   "confidence": 0.7402640581130981,
+   "rerank_score": 1.666717529296875,
+   "top": [
+    {
+     "id": "wiki:modèle-de-fondation#0",
+     "title": "Modèle de fondation",
+     "relevant": false
+    },
+    {
+     "id": "wiki:modèle-de-fondation#2",
+     "title": "Modèle de fondation — Définitions",
+     "relevant": false
+    },
+    {
+     "id": "wiki:apprentissage-auto-supervisé#0",
+     "title": "Apprentissage auto-supervisé",
+     "relevant": true
+    },
+    {
+     "id": "wiki:modèle-de-fondation#1",
+     "title": "Modèle de fondation — Définitions",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p34",
+     "title": "Apprentissage auto-supervisé en vision",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q21",
+   "category": "paraphrase",
+   "question": "Comment réutiliser un réseau déjà entraîné pour une autre tâche ?",
+   "relevant": [
+    "wiki:apprentissage-par-transfert",
+    "inf5101:p38"
+   ],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": 1,
+    "hybrid-naive": 8,
+    "hybrid": 8,
+    "hybrid-rerank": 7
+   },
+   "confidence": 0.7394634485244751,
+   "rerank_score": -3.179126501083374,
+   "top": [
+    {
+     "id": "wiki:grand-modèle-de-langage#9",
+     "title": "Grand modèle de langage — Réglage après entraînement",
+     "relevant": false
+    },
+    {
+     "id": "wiki:transformeur#0",
+     "title": "Transformeur",
+     "relevant": false
+    },
+    {
+     "id": "wiki:réseau-de-neurones-récurrents#0",
+     "title": "Réseau de neurones récurrents",
+     "relevant": false
+    },
+    {
+     "id": "wiki:apprentissage-auto-supervisé#0",
+     "title": "Apprentissage auto-supervisé",
+     "relevant": false
+    },
+    {
+     "id": "wiki:intelligence-artificielle-générative#6",
+     "title": "Intelligence artificielle générative — Réseaux de neurones génératifs (depuis la fin des années 2000)",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q22",
+   "category": "paraphrase",
+   "question": "Comment faire parler un ordinateur avec une voix naturelle ?",
+   "relevant": [
+    "inf5101:p49",
+    "wiki:synthèse-vocale"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 2,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.771675705909729,
+   "rerank_score": -2.5383996963500977,
+   "top": [
+    {
+     "id": "wiki:synthèse-vocale#3",
+     "title": "Synthèse vocale — Historique",
+     "relevant": true
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#0",
+     "title": "Reconnaissance automatique de la parole",
+     "relevant": false
+    },
+    {
+     "id": "wiki:synthèse-vocale#0",
+     "title": "Synthèse vocale",
+     "relevant": true
+    },
+    {
+     "id": "wiki:traitement-automatique-des-langues#3",
+     "title": "Traitement automatique des langues — Années 1950-1960",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p49",
+     "title": "Audio génératif",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q23",
+   "category": "paraphrase",
+   "question": "Comment suivre une personne d'une image à l'autre dans une vidéo ?",
+   "relevant": [
+    "inf5101:p59"
+   ],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": 1,
+    "hybrid-naive": null,
+    "hybrid": null,
+    "hybrid-rerank": null
+   },
+   "confidence": 0.7542154788970947,
+   "rerank_score": -3.1087567806243896,
+   "top": [
+    {
+     "id": "wiki:vidéo#0",
+     "title": "Vidéo",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vidéo#3",
+     "title": "Vidéo — Balayage",
+     "relevant": false
+    },
+    {
+     "id": "wiki:détection-d-objet#0",
+     "title": "Détection d'objet",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vision-par-ordinateur#1",
+     "title": "Vision par ordinateur",
+     "relevant": false
+    },
+    {
+     "id": "wiki:détection-d-objet#4",
+     "title": "Détection d'objet — Méthodes spécifiques",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q24",
+   "category": "paraphrase",
+   "question": "Comment un modèle relie-t-il une photo et sa description ?",
+   "relevant": [
+    "inf5101:p36"
+   ],
+   "first_relevant_rank": {
+    "bm25": 3,
+    "dense-minilm": 5,
+    "dense-e5-small": 4,
+    "dense-gemini": 1,
+    "hybrid-naive": 2,
+    "hybrid": 2,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7365180253982544,
+   "rerank_score": 0.030102796852588654,
+   "top": [
+    {
+     "id": "inf5101:p36",
+     "title": "Vision-Language : relier image et texte",
+     "relevant": true
+    },
+    {
+     "id": "wiki:modèle-de-fondation#4",
+     "title": "Modèle de fondation — Entraînement",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p60",
+     "title": "Video captioning et description de scènes",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p26",
+     "title": "Image numérique : matrice de pixels",
+     "relevant": false
+    },
+    {
+     "id": "wiki:modèle-de-fondation#5",
+     "title": "Modèle de fondation — Entraînement",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q25",
+   "category": "paraphrase",
+   "question": "Pourquoi les modèles récurrents ont-ils été abandonnés pour traiter les séquences ?",
+   "relevant": [
+    "inf5101:p17",
+    "wiki:transformeur#1",
+    "wiki:transformeur#2",
+    "wiki:transformeur#3",
+    "wiki:transformeur#5",
+    "wiki:grand-modèle-de-langage#2"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": null,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7700241208076477,
+   "rerank_score": 0.23272420465946198,
+   "top": [
+    {
+     "id": "wiki:grand-modèle-de-langage#2",
+     "title": "Grand modèle de langage — Architecture",
+     "relevant": true
+    },
+    {
+     "id": "wiki:transformeur#0",
+     "title": "Transformeur",
+     "relevant": false
+    },
+    {
+     "id": "wiki:transformeur#3",
+     "title": "Transformeur — Réseaux de neurones récurrents",
+     "relevant": true
+    },
+    {
+     "id": "wiki:attention-apprentissage-automatique#0",
+     "title": "Attention (apprentissage automatique)",
+     "relevant": false
+    },
+    {
+     "id": "wiki:réseau-de-neurones-récurrents#0",
+     "title": "Réseau de neurones récurrents",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q26",
+   "category": "paraphrase",
+   "question": "Comment réduire la taille d'un fichier vidéo sans trop perdre en qualité ?",
+   "relevant": [
+    "wiki:compression-vidéo",
+    "inf5101:p10",
+    "wiki:codec"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 2,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.713740348815918,
+   "rerank_score": -0.28436022996902466,
+   "top": [
+    {
+     "id": "wiki:compression-vidéo#0",
+     "title": "Compression vidéo — Historique et standards",
+     "relevant": true
+    },
+    {
+     "id": "wiki:compression-vidéo#3",
+     "title": "Compression vidéo — Sous-échantillonnage et interpolation",
+     "relevant": true
+    },
+    {
+     "id": "wiki:vidéo#0",
+     "title": "Vidéo",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vidéo#1",
+     "title": "Vidéo",
+     "relevant": false
+    },
+    {
+     "id": "wiki:compression-vidéo#2",
+     "title": "Compression vidéo — Principes fondamentaux des algorithmes de compression vidéo",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q27",
+   "category": "paraphrase",
+   "question": "Comment repérer automatiquement des défauts sur une chaîne de production ?",
+   "relevant": [
+    "inf5101:p37"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7782912850379944,
+   "rerank_score": -0.23030011355876923,
+   "top": [
+    {
+     "id": "inf5101:p37",
+     "title": "Exemple : inspection visuelle industrielle",
+     "relevant": true
+    },
+    {
+     "id": "wiki:attention-apprentissage-automatique#0",
+     "title": "Attention (apprentissage automatique)",
+     "relevant": false
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#6",
+     "title": "Reconnaissance automatique de la parole — Matériel technique",
+     "relevant": false
+    },
+    {
+     "id": "wiki:détection-d-objet#3",
+     "title": "Détection d'objet — Approche générale",
+     "relevant": false
+    },
+    {
+     "id": "wiki:reconnaissance-optique-de-caractères#7",
+     "title": "Reconnaissance optique de caractères — Apprentissage",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q28",
+   "category": "paraphrase",
+   "question": "Comment éviter qu'un assistant conversationnel invente des réponses ?",
+   "relevant": [
+    "inf5101:p20",
+    "inf5101:p22",
+    "wiki:génération-à-enrichissement-contextuel#2",
+    "wiki:génération-à-enrichissement-contextuel#3"
+   ],
+   "first_relevant_rank": {
+    "bm25": 5,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": 2,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 3
+   },
+   "confidence": 0.6979624032974243,
+   "rerank_score": -3.958224296569824,
+   "top": [
+    {
+     "id": "wiki:grand-modèle-de-langage#0",
+     "title": "Grand modèle de langage",
+     "relevant": false
+    },
+    {
+     "id": "wiki:grand-modèle-de-langage#1",
+     "title": "Grand modèle de langage",
+     "relevant": false
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#3",
+     "title": "Génération à enrichissement contextuel — Limites de la RAG et des LLM",
+     "relevant": true
+    },
+    {
+     "id": "wiki:agent-intelligent#4",
+     "title": "Agent intelligent — Histoire",
+     "relevant": false
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#0",
+     "title": "Génération à enrichissement contextuel",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q29",
+   "category": "paraphrase",
+   "question": "Quelles images garder quand une vidéo est trop longue pour être analysée en entier ?",
+   "relevant": [
+    "inf5101:p54"
+   ],
+   "first_relevant_rank": {
+    "bm25": 9,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": 1,
+    "hybrid-naive": 2,
+    "hybrid": 2,
+    "hybrid-rerank": null
+   },
+   "confidence": 0.7872475981712341,
+   "rerank_score": -3.202240467071533,
+   "top": [
+    {
+     "id": "wiki:vidéo#0",
+     "title": "Vidéo",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p53",
+     "title": "Vidéo = images + temps + son",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vidéo#1",
+     "title": "Vidéo",
+     "relevant": false
+    },
+    {
+     "id": "wiki:compression-vidéo#1",
+     "title": "Compression vidéo — Principes fondamentaux des algorithmes de compression vidéo",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vidéo#3",
+     "title": "Vidéo — Balayage",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q30",
+   "category": "acronyme",
+   "question": "Comment fonctionne un ViT ?",
+   "relevant": [
+    "inf5101:p33"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8085826635360718,
+   "rerank_score": 1.300713062286377,
+   "top": [
+    {
+     "id": "inf5101:p33",
+     "title": "Vision Transformer (ViT)",
+     "relevant": true
+    },
+    {
+     "id": "wiki:réseau-neuronal-convolutif#0",
+     "title": "Réseau neuronal convolutif",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p57",
+     "title": "Temporal Transformers",
+     "relevant": false
+    },
+    {
+     "id": "wiki:transformeur#0",
+     "title": "Transformeur",
+     "relevant": false
+    },
+    {
+     "id": "wiki:transformeur#6",
+     "title": "Transformeur — L'architecture \"encodeur-décodeur\" du transformeur original",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q31",
+   "category": "acronyme",
+   "question": "Qu'est-ce que l'ASR ?",
+   "relevant": [
+    "inf5101:p45",
+    "wiki:reconnaissance-automatique-de-la-parole"
+   ],
+   "first_relevant_rank": {
+    "bm25": 2,
+    "dense-minilm": 2,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7261950373649597,
+   "rerank_score": 1.678838849067688,
+   "top": [
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#5",
+     "title": "Reconnaissance automatique de la parole — Étapes",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p45",
+     "title": "Reconnaissance automatique de la parole",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p50",
+     "title": "Exemple : analyse d'appels clients",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p23",
+     "title": "Exemple d'application : moteur de recherche de cours",
+     "relevant": false
+    },
+    {
+     "id": "wiki:réseau-de-neurones-récurrents#0",
+     "title": "Réseau de neurones récurrents",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q32",
+   "category": "acronyme",
+   "question": "À quoi sert l'OCR ?",
+   "relevant": [
+    "wiki:reconnaissance-optique-de-caractères",
+    "inf5101:p23",
+    "inf5101:p60"
+   ],
+   "first_relevant_rank": {
+    "bm25": 2,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8077943921089172,
+   "rerank_score": 4.917868614196777,
+   "top": [
+    {
+     "id": "wiki:reconnaissance-optique-de-caractères#0",
+     "title": "Reconnaissance optique de caractères",
+     "relevant": true
+    },
+    {
+     "id": "wiki:reconnaissance-optique-de-caractères#4",
+     "title": "Reconnaissance optique de caractères — Apprentissage",
+     "relevant": true
+    },
+    {
+     "id": "wiki:reconnaissance-optique-de-caractères#2",
+     "title": "Reconnaissance optique de caractères — Histoire",
+     "relevant": true
+    },
+    {
+     "id": "wiki:reconnaissance-optique-de-caractères#1",
+     "title": "Reconnaissance optique de caractères — Histoire",
+     "relevant": true
+    },
+    {
+     "id": "wiki:reconnaissance-optique-de-caractères#9",
+     "title": "Reconnaissance optique de caractères — Libres",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q33",
+   "category": "acronyme",
+   "question": "Que signifie GAN ?",
+   "relevant": [
+    "wiki:réseaux-antagonistes-génératifs",
+    "inf5101:p35"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7972367405891418,
+   "rerank_score": 3.7963356971740723,
+   "top": [
+    {
+     "id": "wiki:réseaux-antagonistes-génératifs#0",
+     "title": "Réseaux antagonistes génératifs",
+     "relevant": true
+    },
+    {
+     "id": "wiki:réseaux-antagonistes-génératifs#5",
+     "title": "Réseaux antagonistes génératifs — Pour la recherche",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p35",
+     "title": "Modèles génératifs d'images",
+     "relevant": true
+    },
+    {
+     "id": "wiki:réseaux-antagonistes-génératifs#3",
+     "title": "Réseaux antagonistes génératifs — En art",
+     "relevant": true
+    },
+    {
+     "id": "wiki:intelligence-artificielle-générative#6",
+     "title": "Intelligence artificielle générative — Réseaux de neurones génératifs (depuis la fin des années 2000)",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q34",
+   "category": "acronyme",
+   "question": "Quelle différence entre 3D CNN et two-stream ?",
+   "relevant": [
+    "inf5101:p56"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8374197483062744,
+   "rerank_score": 5.981651306152344,
+   "top": [
+    {
+     "id": "inf5101:p56",
+     "title": "3D CNN et two-stream networks",
+     "relevant": true
+    },
+    {
+     "id": "wiki:réseau-neuronal-convolutif#0",
+     "title": "Réseau neuronal convolutif",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p44",
+     "title": "Classification audio",
+     "relevant": false
+    },
+    {
+     "id": "wiki:réseau-neuronal-convolutif#5",
+     "title": "Réseau neuronal convolutif — Caractéristiques et avantages",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p29",
+     "title": "CNN : convolution, pooling, hiérarchie",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q35",
+   "category": "acronyme",
+   "question": "Qu'est-ce qu'un LLM ?",
+   "relevant": [
+    "wiki:grand-modèle-de-langage",
+    "inf5101:p18"
+   ],
+   "first_relevant_rank": {
+    "bm25": 5,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8192591667175293,
+   "rerank_score": 5.8312835693359375,
+   "top": [
+    {
+     "id": "wiki:grand-modèle-de-langage#0",
+     "title": "Grand modèle de langage",
+     "relevant": true
+    },
+    {
+     "id": "wiki:grand-modèle-de-langage#3",
+     "title": "Grand modèle de langage — Analyse lexicale",
+     "relevant": true
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#0",
+     "title": "Génération à enrichissement contextuel",
+     "relevant": false
+    },
+    {
+     "id": "wiki:intelligence-artificielle-générative#3",
+     "title": "Intelligence artificielle générative — Vocabulaire",
+     "relevant": false
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#5",
+     "title": "Génération à enrichissement contextuel — Processus",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q36",
+   "category": "acronyme",
+   "question": "À quoi sert un LSTM ?",
+   "relevant": [
+    "wiki:réseau-de-neurones-récurrents#4",
+    "wiki:réseau-de-neurones-récurrents#1"
+   ],
+   "first_relevant_rank": {
+    "bm25": 3,
+    "dense-minilm": 4,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 2,
+    "hybrid": 2,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8099852204322815,
+   "rerank_score": 5.623664379119873,
+   "top": [
+    {
+     "id": "wiki:réseau-de-neurones-récurrents#4",
+     "title": "Réseau de neurones récurrents — Long short-term memory",
+     "relevant": true
+    },
+    {
+     "id": "wiki:réseau-de-neurones-récurrents#6",
+     "title": "Réseau de neurones récurrents — Variantes",
+     "relevant": false
+    },
+    {
+     "id": "wiki:transformeur#0",
+     "title": "Transformeur",
+     "relevant": false
+    },
+    {
+     "id": "wiki:apprentissage-profond#6",
+     "title": "Apprentissage profond — Les réseaux de neurones (années 1990-2000)",
+     "relevant": false
+    },
+    {
+     "id": "wiki:intelligence-artificielle-générative#6",
+     "title": "Intelligence artificielle générative — Réseaux de neurones génératifs (depuis la fin des années 2000)",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q37",
+   "category": "cross-lingue",
+   "question": "What is speaker diarization?",
+   "relevant": [
+    "inf5101:p48"
+   ],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 2,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7918492555618286,
+   "rerank_score": 0.8220888376235962,
+   "top": [
+    {
+     "id": "inf5101:p48",
+     "title": "Diarisation et identification du locuteur",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p50",
+     "title": "Exemple : analyse d'appels clients",
+     "relevant": false
+    },
+    {
+     "id": "wiki:synthèse-vocale#0",
+     "title": "Synthèse vocale",
+     "relevant": false
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#0",
+     "title": "Reconnaissance automatique de la parole",
+     "relevant": false
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#8",
+     "title": "Reconnaissance automatique de la parole — Classification",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q38",
+   "category": "cross-lingue",
+   "question": "How does the attention mechanism work in Transformers?",
+   "relevant": [
+    "inf5101:p17",
+    "wiki:attention-apprentissage-automatique",
+    "wiki:transformeur"
+   ],
+   "first_relevant_rank": {
+    "bm25": 2,
+    "dense-minilm": 1,
+    "dense-e5-small": 2,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.771397590637207,
+   "rerank_score": 4.491855144500732,
+   "top": [
+    {
+     "id": "wiki:attention-apprentissage-automatique#0",
+     "title": "Attention (apprentissage automatique)",
+     "relevant": true
+    },
+    {
+     "id": "wiki:transformeur#4",
+     "title": "Transformeur — Mécanisme d'attention",
+     "relevant": true
+    },
+    {
+     "id": "wiki:transformeur#2",
+     "title": "Transformeur — Contexte",
+     "relevant": true
+    },
+    {
+     "id": "wiki:attention-apprentissage-automatique#2",
+     "title": "Attention (apprentissage automatique) — Applications",
+     "relevant": true
+    },
+    {
+     "id": "wiki:transformeur#5",
+     "title": "Transformeur — Garder l'attention en se débarrassant des RNN",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q39",
+   "category": "cross-lingue",
+   "question": "How can I detect objects in an image with bounding boxes?",
+   "relevant": [
+    "inf5101:p32",
+    "wiki:détection-d-objet"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7357321381568909,
+   "rerank_score": -0.581719160079956,
+   "top": [
+    {
+     "id": "wiki:détection-d-objet#3",
+     "title": "Détection d'objet — Approche générale",
+     "relevant": true
+    },
+    {
+     "id": "wiki:détection-d-objet#0",
+     "title": "Détection d'objet",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p32",
+     "title": "Détection d'objets",
+     "relevant": true
+    },
+    {
+     "id": "wiki:détection-d-objet#1",
+     "title": "Détection d'objet — Problématique",
+     "relevant": true
+    },
+    {
+     "id": "wiki:segmentation-d-image#0",
+     "title": "Segmentation d'image",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q40",
+   "category": "cross-lingue",
+   "question": "What is retrieval-augmented generation?",
+   "relevant": [
+    "inf5101:p20",
+    "wiki:génération-à-enrichissement-contextuel"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8076576590538025,
+   "rerank_score": 7.865017414093018,
+   "top": [
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#0",
+     "title": "Génération à enrichissement contextuel",
+     "relevant": true
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#6",
+     "title": "Génération à enrichissement contextuel — Étapes clés de la RAG",
+     "relevant": true
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#9",
+     "title": "Génération à enrichissement contextuel — Méthodes centrées sur le moteur de récupération (retriever)",
+     "relevant": true
+    },
+    {
+     "id": "wiki:génération-à-enrichissement-contextuel#5",
+     "title": "Génération à enrichissement contextuel — Processus",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p20",
+     "title": "RAG : recherche + génération",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q41",
+   "category": "cross-lingue",
+   "question": "Why is multimedia data hard to process?",
+   "relevant": [
+    "inf5101:p6"
+   ],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 8,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8542270660400391,
+   "rerank_score": -0.8876647353172302,
+   "top": [
+    {
+     "id": "inf5101:p6",
+     "title": "Pourquoi le multimédia est difficile ?",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p4",
+     "title": "Qu'est-ce qu'une donnée multimédia ?",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p11",
+     "title": "Une donnée multimédia n'est jamais seule",
+     "relevant": false
+    },
+    {
+     "id": "wiki:multimédia#0",
+     "title": "Multimédia",
+     "relevant": false
+    },
+    {
+     "id": "wiki:multimédia#4",
+     "title": "Multimédia — Histoire du mot « multimédia »",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q42",
+   "category": "cross-lingue",
+   "question": "What is a spectrogram?",
+   "relevant": [
+    "inf5101:p41",
+    "wiki:spectrogramme"
+   ],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 2,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8111095428466797,
+   "rerank_score": 5.066699028015137,
+   "top": [
+    {
+     "id": "wiki:spectrogramme#0",
+     "title": "Spectrogramme — Spectres d'émission et d'absorption",
+     "relevant": true
+    },
+    {
+     "id": "wiki:transformée-de-fourier-à-court-terme#0",
+     "title": "Transformée de Fourier à court terme — Transformée de Fourier locale continue",
+     "relevant": false
+    },
+    {
+     "id": "wiki:spectrogramme#1",
+     "title": "Spectrogramme — Sonagramme",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p41",
+     "title": "Spectrogramme : voir le son",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p39",
+     "title": "MODULE 4 — Traitement audio",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q43",
+   "category": "cross-lingue",
+   "question": "How should I evaluate a text classifier?",
+   "relevant": [
+    "inf5101:p22",
+    "wiki:précision-et-rappel",
+    "wiki:matrice-de-confusion"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 3,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7722748517990112,
+   "rerank_score": -0.36606070399284363,
+   "top": [
+    {
+     "id": "inf5101:p22",
+     "title": "Évaluer un modèle de texte",
+     "relevant": true
+    },
+    {
+     "id": "wiki:résumé-automatique-de-texte#3",
+     "title": "Résumé automatique de texte — Types de résumés",
+     "relevant": false
+    },
+    {
+     "id": "wiki:résumé-automatique-de-texte#4",
+     "title": "Résumé automatique de texte — Évaluation",
+     "relevant": false
+    },
+    {
+     "id": "wiki:analyse-de-sentiments#7",
+     "title": "Analyse de sentiments — Apprentissage automatique",
+     "relevant": false
+    },
+    {
+     "id": "wiki:tf-idf#0",
+     "title": "TF-IDF",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q44",
+   "category": "cross-lingue",
+   "question": "How does video captioning work?",
+   "relevant": [
+    "inf5101:p60"
+   ],
+   "first_relevant_rank": {
+    "bm25": 2,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7381906509399414,
+   "rerank_score": 0.5321728587150574,
+   "top": [
+    {
+     "id": "inf5101:p60",
+     "title": "Video captioning et description de scènes",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p53",
+     "title": "Vidéo = images + temps + son",
+     "relevant": false
+    },
+    {
+     "id": "wiki:sous-titrage#0",
+     "title": "Sous-titrage",
+     "relevant": false
+    },
+    {
+     "id": "wiki:sous-titrage#1",
+     "title": "Sous-titrage — Caractéristiques",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vidéo#0",
+     "title": "Vidéo",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q45",
+   "category": "cross-lingue",
+   "question": "What is data augmentation for images?",
+   "relevant": [
+    "inf5101:p27",
+    "wiki:augmentation-de-données"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7866027355194092,
+   "rerank_score": 2.2263457775115967,
+   "top": [
+    {
+     "id": "wiki:augmentation-de-données#1",
+     "title": "Augmentation de données — Principe",
+     "relevant": true
+    },
+    {
+     "id": "wiki:augmentation-de-données#0",
+     "title": "Augmentation de données",
+     "relevant": true
+    },
+    {
+     "id": "wiki:augmentation-de-données#8",
+     "title": "Augmentation de données — Dans le domaine des séries temporelles",
+     "relevant": true
+    },
+    {
+     "id": "wiki:augmentation-de-données#2",
+     "title": "Augmentation de données — Transformation géométrique",
+     "relevant": true
+    },
+    {
+     "id": "wiki:augmentation-de-données#3",
+     "title": "Augmentation de données — Transformation basée morphing",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q46",
+   "category": "cross-lingue",
+   "question": "What are word embeddings?",
+   "relevant": [
+    "inf5101:p16",
+    "wiki:word-embedding",
+    "wiki:word2vec"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8167073130607605,
+   "rerank_score": 9.795791625976562,
+   "top": [
+    {
+     "id": "wiki:word-embedding#0",
+     "title": "Word embedding",
+     "relevant": true
+    },
+    {
+     "id": "wiki:word-embedding#2",
+     "title": "Word embedding — Introduction",
+     "relevant": true
+    },
+    {
+     "id": "wiki:word-embedding#3",
+     "title": "Word embedding — Historique et contexte",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p16",
+     "title": "Embeddings : représenter le sens par des vecteurs",
+     "relevant": true
+    },
+    {
+     "id": "wiki:word-embedding#8",
+     "title": "Word embedding — Méthode",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q47",
+   "category": "faute",
+   "question": "c quoi la segmantation d'imaje",
+   "relevant": [
+    "inf5101:p31",
+    "wiki:segmentation-d-image"
+   ],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": null,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8259909749031067,
+   "rerank_score": 4.251926898956299,
+   "top": [
+    {
+     "id": "wiki:segmentation-d-image#0",
+     "title": "Segmentation d'image",
+     "relevant": true
+    },
+    {
+     "id": "wiki:segmentation-d-image#1",
+     "title": "Segmentation d'image — Segmentation par régions",
+     "relevant": true
+    },
+    {
+     "id": "wiki:segmentation-d-image#4",
+     "title": "Segmentation d'image — Segmentation par contours",
+     "relevant": true
+    },
+    {
+     "id": "wiki:segmentation-d-image#6",
+     "title": "Segmentation d'image — Segmentation par approche d'apprentissage automatique",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p31",
+     "title": "Segmentation d'images",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q48",
+   "category": "faute",
+   "question": "transformé de fourrier courte",
+   "relevant": [
+    "inf5101:p41",
+    "wiki:transformée-de-fourier-à-court-terme"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": null,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8010977506637573,
+   "rerank_score": 8.178526878356934,
+   "top": [
+    {
+     "id": "wiki:transformée-de-fourier-à-court-terme#0",
+     "title": "Transformée de Fourier à court terme — Transformée de Fourier locale continue",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p41",
+     "title": "Spectrogramme : voir le son",
+     "relevant": true
+    },
+    {
+     "id": "wiki:transformation-de-fourier-rapide#0",
+     "title": "Transformation de Fourier rapide",
+     "relevant": false
+    },
+    {
+     "id": "wiki:transformation-de-fourier-rapide#7",
+     "title": "Transformation de Fourier rapide — Autres algorithmes",
+     "relevant": false
+    },
+    {
+     "id": "wiki:transformation-de-fourier-rapide#5",
+     "title": "Transformation de Fourier rapide — Algorithme de Cooley-Tukey",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q49",
+   "category": "faute",
+   "question": "reseau de neurone convolutionel pooling",
+   "relevant": [
+    "inf5101:p29",
+    "wiki:réseau-neuronal-convolutif"
+   ],
+   "first_relevant_rank": {
+    "bm25": 2,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8048526048660278,
+   "rerank_score": 3.722001075744629,
+   "top": [
+    {
+     "id": "wiki:réseau-neuronal-convolutif#1",
+     "title": "Réseau neuronal convolutif — Présentation",
+     "relevant": true
+    },
+    {
+     "id": "wiki:réseau-neuronal-convolutif#0",
+     "title": "Réseau neuronal convolutif",
+     "relevant": true
+    },
+    {
+     "id": "wiki:apprentissage-profond#6",
+     "title": "Apprentissage profond — Les réseaux de neurones (années 1990-2000)",
+     "relevant": false
+    },
+    {
+     "id": "wiki:réseau-neuronal-convolutif#7",
+     "title": "Réseau neuronal convolutif — Le néocognitron",
+     "relevant": true
+    },
+    {
+     "id": "wiki:réseau-neuronal-convolutif#5",
+     "title": "Réseau neuronal convolutif — Caractéristiques et avantages",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q50",
+   "category": "faute",
+   "question": "whisper transcripsion multilingue",
+   "relevant": [
+    "inf5101:p47"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8431617021560669,
+   "rerank_score": 5.966259002685547,
+   "top": [
+    {
+     "id": "inf5101:p47",
+     "title": "Whisper : transcription multilingue robuste",
+     "relevant": true
+    },
+    {
+     "id": "wiki:traduction-automatique#2",
+     "title": "Traduction automatique — Traduction automatique et transcription automatique",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p39",
+     "title": "MODULE 4 — Traitement audio",
+     "relevant": false
+    },
+    {
+     "id": "wiki:traitement-automatique-des-langues#0",
+     "title": "Traitement automatique des langues",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p45",
+     "title": "Reconnaissance automatique de la parole",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q51",
+   "category": "faute",
+   "question": "embedings semantiques",
+   "relevant": [
+    "inf5101:p16",
+    "wiki:word-embedding"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8337941765785217,
+   "rerank_score": 3.865264415740967,
+   "top": [
+    {
+     "id": "wiki:word-embedding#0",
+     "title": "Word embedding",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p16",
+     "title": "Embeddings : représenter le sens par des vecteurs",
+     "relevant": true
+    },
+    {
+     "id": "wiki:word-embedding#3",
+     "title": "Word embedding — Historique et contexte",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p24",
+     "title": "Travaux pratiques texte",
+     "relevant": false
+    },
+    {
+     "id": "wiki:word-embedding#8",
+     "title": "Word embedding — Méthode",
+     "relevant": true
+    }
+   ]
+  },
+  {
+   "id": "q52",
+   "category": "hors-domaine",
+   "question": "Quelle est la capitale du Cameroun ?",
+   "relevant": [],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": null,
+    "hybrid-naive": null,
+    "hybrid": null,
+    "hybrid-rerank": null
+   },
+   "confidence": 0.5882749557495117,
+   "rerank_score": -9.744385719299316,
+   "top": [
+    {
+     "id": "wiki:vidéo#7",
+     "title": "Vidéo — Les normes vidéo et télévisuelles internationales",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p1",
+     "title": "Présentation du cours INF5101",
+     "relevant": false
+    },
+    {
+     "id": "wiki:multimédia#0",
+     "title": "Multimédia",
+     "relevant": false
+    },
+    {
+     "id": "wiki:compression-vidéo#3",
+     "title": "Compression vidéo — Sous-échantillonnage et interpolation",
+     "relevant": false
+    },
+    {
+     "id": "wiki:reconnaissance-d-entités-nommées#3",
+     "title": "Reconnaissance d'entités nommées — Évaluation",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q53",
+   "category": "hors-domaine",
+   "question": "Recette du ndolé aux crevettes",
+   "relevant": [],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": null,
+    "hybrid-naive": null,
+    "hybrid": null,
+    "hybrid-rerank": null
+   },
+   "confidence": 0.5483946204185486,
+   "rerank_score": -10.326460838317871,
+   "top": [
+    {
+     "id": "wiki:sac-de-mots#2",
+     "title": "Sac de mots — Cas des textes",
+     "relevant": false
+    },
+    {
+     "id": "wiki:réseau-neuronal-convolutif#0",
+     "title": "Réseau neuronal convolutif",
+     "relevant": false
+    },
+    {
+     "id": "wiki:racinisation#1",
+     "title": "Racinisation",
+     "relevant": false
+    },
+    {
+     "id": "wiki:word-embedding#5",
+     "title": "Word embedding — Principe général",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vidéo#7",
+     "title": "Vidéo — Les normes vidéo et télévisuelles internationales",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q54",
+   "category": "hors-domaine",
+   "question": "Comment déclarer ses impôts en ligne ?",
+   "relevant": [],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": null,
+    "hybrid-naive": null,
+    "hybrid": null,
+    "hybrid-rerank": null
+   },
+   "confidence": 0.5843859314918518,
+   "rerank_score": -9.989635467529297,
+   "top": [
+    {
+     "id": "wiki:agent-intelligent#5",
+     "title": "Agent intelligent — Histoire",
+     "relevant": false
+    },
+    {
+     "id": "wiki:agent-intelligent#6",
+     "title": "Agent intelligent — Prospective",
+     "relevant": false
+    },
+    {
+     "id": "wiki:traduction-automatique#0",
+     "title": "Traduction automatique",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vidéo#7",
+     "title": "Vidéo — Les normes vidéo et télévisuelles internationales",
+     "relevant": false
+    },
+    {
+     "id": "wiki:traduction-automatique#1",
+     "title": "Traduction automatique",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q55",
+   "category": "hors-domaine",
+   "question": "Qui a gagné la Coupe d'Afrique des nations 2019 ?",
+   "relevant": [],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": null,
+    "hybrid-naive": null,
+    "hybrid": null,
+    "hybrid-rerank": null
+   },
+   "confidence": 0.5855571031570435,
+   "rerank_score": -8.034326553344727,
+   "top": [
+    {
+     "id": "wiki:vidéo#7",
+     "title": "Vidéo — Les normes vidéo et télévisuelles internationales",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vidéo#9",
+     "title": "Vidéo — Les standards de diffusion couleur",
+     "relevant": false
+    },
+    {
+     "id": "wiki:réseaux-antagonistes-génératifs#3",
+     "title": "Réseaux antagonistes génératifs — En art",
+     "relevant": false
+    },
+    {
+     "id": "wiki:multimédia#5",
+     "title": "Multimédia — Histoire du mot « multimédia »",
+     "relevant": false
+    },
+    {
+     "id": "wiki:réseaux-antagonistes-génératifs#4",
+     "title": "Réseaux antagonistes génératifs — En art",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q56",
+   "category": "hors-domaine",
+   "question": "Quel est le prix du carburant à Yaoundé ?",
+   "relevant": [],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": null,
+    "hybrid-naive": null,
+    "hybrid": null,
+    "hybrid-rerank": null
+   },
+   "confidence": 0.5498722791671753,
+   "rerank_score": -10.91092300415039,
+   "top": [
+    {
+     "id": "inf5101:p1",
+     "title": "Présentation du cours INF5101",
+     "relevant": false
+    },
+    {
+     "id": "wiki:intelligence-artificielle-générative#0",
+     "title": "Intelligence artificielle générative",
+     "relevant": false
+    },
+    {
+     "id": "wiki:pixel#2",
+     "title": "Pixel — Codages",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p54",
+     "title": "Échantillonnage de frames",
+     "relevant": false
+    },
+    {
+     "id": "wiki:onde-sonore#7",
+     "title": "Onde sonore — Intensité",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q57",
+   "category": "hors-domaine",
+   "question": "Comment soigner une entorse à la cheville ?",
+   "relevant": [],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": null,
+    "hybrid-naive": null,
+    "hybrid": null,
+    "hybrid-rerank": null
+   },
+   "confidence": 0.5645699501037598,
+   "rerank_score": -10.963401794433594,
+   "top": [
+    {
+     "id": "wiki:racinisation#9",
+     "title": "Racinisation — Racinisation vs. lemmatisation",
+     "relevant": false
+    },
+    {
+     "id": "wiki:racinisation#8",
+     "title": "Racinisation — Racinisation vs. lemmatisation",
+     "relevant": false
+    },
+    {
+     "id": "wiki:traitement-automatique-des-langues#8",
+     "title": "Traitement automatique des langues — Champs de recherche et applications",
+     "relevant": false
+    },
+    {
+     "id": "wiki:attention-apprentissage-automatique#3",
+     "title": "Attention (apprentissage automatique) — Applications",
+     "relevant": false
+    },
+    {
+     "id": "wiki:attention-apprentissage-automatique#0",
+     "title": "Attention (apprentissage automatique)",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q58",
+   "category": "hors-domaine",
+   "question": "How do I change a car tire?",
+   "relevant": [],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": null,
+    "hybrid-naive": null,
+    "hybrid": null,
+    "hybrid-rerank": null
+   },
+   "confidence": 0.5344632267951965,
+   "rerank_score": -10.113471984863281,
+   "top": [
+    {
+     "id": "wiki:détection-d-objet#1",
+     "title": "Détection d'objet — Problématique",
+     "relevant": false
+    },
+    {
+     "id": "wiki:augmentation-de-données#2",
+     "title": "Augmentation de données — Transformation géométrique",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p7",
+     "title": "Cycle de vie d'un projet multimédia IA",
+     "relevant": false
+    },
+    {
+     "id": "wiki:racinisation#0",
+     "title": "Racinisation",
+     "relevant": false
+    },
+    {
+     "id": "wiki:augmentation-de-données#5",
+     "title": "Augmentation de données — Remplacement aléatoire",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q59",
+   "category": "hors-domaine",
+   "question": "Horaires d'ouverture de la bibliothèque",
+   "relevant": [],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": null,
+    "hybrid-naive": null,
+    "hybrid": null,
+    "hybrid-rerank": null
+   },
+   "confidence": 0.5802515745162964,
+   "rerank_score": -8.071268081665039,
+   "top": [
+    {
+     "id": "wiki:recherche-d-information#2",
+     "title": "Recherche d'information — Introduction",
+     "relevant": false
+    },
+    {
+     "id": "wiki:recherche-d-information#0",
+     "title": "Recherche d'information",
+     "relevant": false
+    },
+    {
+     "id": "wiki:reconnaissance-optique-de-caractères#5",
+     "title": "Reconnaissance optique de caractères — Apprentissage",
+     "relevant": false
+    },
+    {
+     "id": "wiki:bert-modèle-de-langage#2",
+     "title": "BERT (modèle de langage) — Usage dans des applications",
+     "relevant": false
+    },
+    {
+     "id": "wiki:précision-et-rappel#2",
+     "title": "Précision et rappel — Rappel",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q60",
+   "category": "raisonnement",
+   "question": "Quelle différence entre BERT et GPT ?",
+   "relevant": [
+    "inf5101:p18",
+    "wiki:bert-modèle-de-langage"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 2
+   },
+   "confidence": 0.7780096530914307,
+   "rerank_score": 2.500511407852173,
+   "top": [
+    {
+     "id": "wiki:transformeur#1",
+     "title": "Transformeur",
+     "relevant": false
+    },
+    {
+     "id": "wiki:bert-modèle-de-langage#0",
+     "title": "BERT (modèle de langage) — Description du modèle",
+     "relevant": true
+    },
+    {
+     "id": "wiki:grand-modèle-de-langage#5",
+     "title": "Grand modèle de langage — Pré-entraînement",
+     "relevant": false
+    },
+    {
+     "id": "wiki:modèle-de-fondation#0",
+     "title": "Modèle de fondation",
+     "relevant": false
+    },
+    {
+     "id": "wiki:traitement-automatique-des-langues#5",
+     "title": "Traitement automatique des langues — Années 1970-1980",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q61",
+   "category": "raisonnement",
+   "question": "Quel lien entre précision, rappel et matrice de confusion ?",
+   "relevant": [
+    "wiki:précision-et-rappel#1",
+    "wiki:matrice-de-confusion",
+    "inf5101:p22"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.7848801612854004,
+   "rerank_score": 2.729965925216675,
+   "top": [
+    {
+     "id": "wiki:précision-et-rappel#1",
+     "title": "Précision et rappel — Calcul",
+     "relevant": true
+    },
+    {
+     "id": "wiki:précision-et-rappel#0",
+     "title": "Précision et rappel",
+     "relevant": false
+    },
+    {
+     "id": "wiki:précision-et-rappel#3",
+     "title": "Précision et rappel — Interprétation des résultats",
+     "relevant": false
+    },
+    {
+     "id": "wiki:matrice-de-confusion#0",
+     "title": "Matrice de confusion",
+     "relevant": true
+    },
+    {
+     "id": "wiki:précision-et-rappel#2",
+     "title": "Précision et rappel — Rappel",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q62",
+   "category": "raisonnement",
+   "question": "Faut-il donner des MFCC ou des spectrogrammes à un classifieur audio ?",
+   "relevant": [
+    "inf5101:p44",
+    "inf5101:p42",
+    "inf5101:p41"
+   ],
+   "first_relevant_rank": {
+    "bm25": 2,
+    "dense-minilm": 1,
+    "dense-e5-small": 2,
+    "dense-gemini": 1,
+    "hybrid-naive": 2,
+    "hybrid": 2,
+    "hybrid-rerank": 2
+   },
+   "confidence": 0.7847608923912048,
+   "rerank_score": 0.5041418075561523,
+   "top": [
+    {
+     "id": "inf5101:p51",
+     "title": "Travaux pratiques audio",
+     "relevant": false
+    },
+    {
+     "id": "inf5101:p44",
+     "title": "Classification audio",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p42",
+     "title": "MFCC et échelle Mel",
+     "relevant": true
+    },
+    {
+     "id": "wiki:reconnaissance-automatique-de-la-parole#5",
+     "title": "Reconnaissance automatique de la parole — Étapes",
+     "relevant": false
+    },
+    {
+     "id": "wiki:cepstre#2",
+     "title": "Cepstre — MFCC",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q63",
+   "category": "raisonnement",
+   "question": "En quoi analyser une vidéo est plus difficile qu'analyser une image ?",
+   "relevant": [
+    "inf5101:p53"
+   ],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": 1,
+    "dense-e5-small": 2,
+    "dense-gemini": 1,
+    "hybrid-naive": 3,
+    "hybrid": 3,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.8014243841171265,
+   "rerank_score": 0.3001507520675659,
+   "top": [
+    {
+     "id": "inf5101:p53",
+     "title": "Vidéo = images + temps + son",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p6",
+     "title": "Pourquoi le multimédia est difficile ?",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vidéo#0",
+     "title": "Vidéo",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vidéo#1",
+     "title": "Vidéo",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vision-par-ordinateur#0",
+     "title": "Vision par ordinateur",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q64",
+   "category": "raisonnement",
+   "question": "Quelles méthodes de vision n'utilisent pas d'apprentissage profond ?",
+   "relevant": [
+    "inf5101:p28"
+   ],
+   "first_relevant_rank": {
+    "bm25": null,
+    "dense-minilm": null,
+    "dense-e5-small": null,
+    "dense-gemini": 1,
+    "hybrid-naive": 4,
+    "hybrid": 4,
+    "hybrid-rerank": 8
+   },
+   "confidence": 0.7939333319664001,
+   "rerank_score": 1.742133617401123,
+   "top": [
+    {
+     "id": "wiki:apprentissage-profond#0",
+     "title": "Apprentissage profond",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vision-par-ordinateur#4",
+     "title": "Vision par ordinateur — Histoire",
+     "relevant": false
+    },
+    {
+     "id": "wiki:vision-par-ordinateur#7",
+     "title": "Vision par ordinateur — Neurobiologie",
+     "relevant": false
+    },
+    {
+     "id": "wiki:apprentissage-profond#8",
+     "title": "Apprentissage profond — L'essor de l'apprentissage profond (années 2010)",
+     "relevant": false
+    },
+    {
+     "id": "wiki:apprentissage-profond#2",
+     "title": "Apprentissage profond — Définition",
+     "relevant": false
+    }
+   ]
+  },
+  {
+   "id": "q65",
+   "category": "raisonnement",
+   "question": "Quelles sont les limites des représentations sac de mots ?",
+   "relevant": [
+    "inf5101:p15",
+    "wiki:sac-de-mots"
+   ],
+   "first_relevant_rank": {
+    "bm25": 1,
+    "dense-minilm": 1,
+    "dense-e5-small": 1,
+    "dense-gemini": 1,
+    "hybrid-naive": 1,
+    "hybrid": 1,
+    "hybrid-rerank": 1
+   },
+   "confidence": 0.787844181060791,
+   "rerank_score": 3.1743335723876953,
+   "top": [
+    {
+     "id": "wiki:sac-de-mots#0",
+     "title": "Sac de mots — Principe général",
+     "relevant": true
+    },
+    {
+     "id": "wiki:sac-de-mots#2",
+     "title": "Sac de mots — Cas des textes",
+     "relevant": true
+    },
+    {
+     "id": "wiki:sac-de-mots#3",
+     "title": "Sac de mots — Cas des images",
+     "relevant": true
+    },
+    {
+     "id": "inf5101:p15",
+     "title": "Prétraitement NLP classique",
+     "relevant": true
+    },
+    {
+     "id": "wiki:sac-de-mots#1",
+     "title": "Sac de mots — Principe général",
+     "relevant": true
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,65 @@
+{"id": "q01", "category": "lexical", "question": "Qu'est-ce que le TF-IDF ?", "relevant": ["wiki:tf-idf", "inf5101:p15"]}
+{"id": "q02", "category": "lexical", "question": "Quelles sont les étapes clés d'un RAG ?", "relevant": ["inf5101:p20", "wiki:génération-à-enrichissement-contextuel#5", "wiki:génération-à-enrichissement-contextuel#6", "wiki:génération-à-enrichissement-contextuel#7"]}
+{"id": "q03", "category": "lexical", "question": "Comment fonctionne la segmentation sémantique d'une image ?", "relevant": ["inf5101:p31", "wiki:segmentation-d-image"]}
+{"id": "q04", "category": "lexical", "question": "Quelle fréquence d'échantillonnage utilise-t-on pour la parole ?", "relevant": ["inf5101:p40", "inf5101:p10", "wiki:échantillonnage-signal#4"]}
+{"id": "q05", "category": "lexical", "question": "Qu'est-ce que la diarisation ?", "relevant": ["inf5101:p48", "inf5101:p50"]}
+{"id": "q06", "category": "lexical", "question": "Quelles architectures CNN sont importantes ?", "relevant": ["inf5101:p30"]}
+{"id": "q07", "category": "lexical", "question": "Que sont les MFCC ?", "relevant": ["inf5101:p42", "wiki:cepstre#2"]}
+{"id": "q08", "category": "lexical", "question": "Comment évaluer un système RAG ?", "relevant": ["inf5101:p22"]}
+{"id": "q09", "category": "lexical", "question": "Qu'est-ce que le flux optique ?", "relevant": ["inf5101:p55", "wiki:flux-optique"]}
+{"id": "q10", "category": "lexical", "question": "Quels sont les modèles génératifs d'images ?", "relevant": ["inf5101:p35", "wiki:réseaux-antagonistes-génératifs#0"]}
+{"id": "q11", "category": "lexical", "question": "Quelles métriques pour la détection d'objets ?", "relevant": ["inf5101:p32"]}
+{"id": "q12", "category": "lexical", "question": "Qu'est-ce que la racinisation ?", "relevant": ["wiki:racinisation"]}
+{"id": "q13", "category": "lexical", "question": "Quel est le principe de l'algorithme de Cooley-Tukey ?", "relevant": ["wiki:transformation-de-fourier-rapide#5", "wiki:transformation-de-fourier-rapide#6"]}
+{"id": "q14", "category": "paraphrase", "question": "Comment un modèle peut-il savoir qui prend la parole à quel moment dans un enregistrement ?", "relevant": ["inf5101:p48"]}
+{"id": "q15", "category": "paraphrase", "question": "Comment représenter le sens d'une phrase sous forme de nombres ?", "relevant": ["inf5101:p16", "wiki:word-embedding"]}
+{"id": "q16", "category": "paraphrase", "question": "Pourquoi les machines ne comprennent-elles pas directement les mots ?", "relevant": ["inf5101:p14", "wiki:word-embedding#1"]}
+{"id": "q17", "category": "paraphrase", "question": "Comment produire de nouvelles images d'entraînement à partir des images existantes ?", "relevant": ["inf5101:p27", "wiki:augmentation-de-données"]}
+{"id": "q18", "category": "paraphrase", "question": "Comment transformer un enregistrement de voix en texte écrit ?", "relevant": ["inf5101:p45", "inf5101:p47", "wiki:reconnaissance-automatique-de-la-parole"]}
+{"id": "q19", "category": "paraphrase", "question": "Comment visualiser le contenu fréquentiel d'un son au cours du temps ?", "relevant": ["inf5101:p41", "wiki:spectrogramme", "wiki:transformée-de-fourier-à-court-terme"]}
+{"id": "q20", "category": "paraphrase", "question": "Comment entraîner un modèle sans étiquettes faites à la main ?", "relevant": ["inf5101:p34", "inf5101:p46", "wiki:apprentissage-auto-supervisé"]}
+{"id": "q21", "category": "paraphrase", "question": "Comment réutiliser un réseau déjà entraîné pour une autre tâche ?", "relevant": ["wiki:apprentissage-par-transfert", "inf5101:p38"]}
+{"id": "q22", "category": "paraphrase", "question": "Comment faire parler un ordinateur avec une voix naturelle ?", "relevant": ["inf5101:p49", "wiki:synthèse-vocale"]}
+{"id": "q23", "category": "paraphrase", "question": "Comment suivre une personne d'une image à l'autre dans une vidéo ?", "relevant": ["inf5101:p59"]}
+{"id": "q24", "category": "paraphrase", "question": "Comment un modèle relie-t-il une photo et sa description ?", "relevant": ["inf5101:p36"]}
+{"id": "q25", "category": "paraphrase", "question": "Pourquoi les modèles récurrents ont-ils été abandonnés pour traiter les séquences ?", "relevant": ["inf5101:p17", "wiki:transformeur#1", "wiki:transformeur#2", "wiki:transformeur#3", "wiki:transformeur#5", "wiki:grand-modèle-de-langage#2"]}
+{"id": "q26", "category": "paraphrase", "question": "Comment réduire la taille d'un fichier vidéo sans trop perdre en qualité ?", "relevant": ["wiki:compression-vidéo", "inf5101:p10", "wiki:codec"]}
+{"id": "q27", "category": "paraphrase", "question": "Comment repérer automatiquement des défauts sur une chaîne de production ?", "relevant": ["inf5101:p37"]}
+{"id": "q28", "category": "paraphrase", "question": "Comment éviter qu'un assistant conversationnel invente des réponses ?", "relevant": ["inf5101:p20", "inf5101:p22", "wiki:génération-à-enrichissement-contextuel#2", "wiki:génération-à-enrichissement-contextuel#3"]}
+{"id": "q29", "category": "paraphrase", "question": "Quelles images garder quand une vidéo est trop longue pour être analysée en entier ?", "relevant": ["inf5101:p54"]}
+{"id": "q30", "category": "acronyme", "question": "Comment fonctionne un ViT ?", "relevant": ["inf5101:p33"]}
+{"id": "q31", "category": "acronyme", "question": "Qu'est-ce que l'ASR ?", "relevant": ["inf5101:p45", "wiki:reconnaissance-automatique-de-la-parole"]}
+{"id": "q32", "category": "acronyme", "question": "À quoi sert l'OCR ?", "relevant": ["wiki:reconnaissance-optique-de-caractères", "inf5101:p23", "inf5101:p60"]}
+{"id": "q33", "category": "acronyme", "question": "Que signifie GAN ?", "relevant": ["wiki:réseaux-antagonistes-génératifs", "inf5101:p35"]}
+{"id": "q34", "category": "acronyme", "question": "Quelle différence entre 3D CNN et two-stream ?", "relevant": ["inf5101:p56"]}
+{"id": "q35", "category": "acronyme", "question": "Qu'est-ce qu'un LLM ?", "relevant": ["wiki:grand-modèle-de-langage", "inf5101:p18"]}
+{"id": "q36", "category": "acronyme", "question": "À quoi sert un LSTM ?", "relevant": ["wiki:réseau-de-neurones-récurrents#4", "wiki:réseau-de-neurones-récurrents#1"]}
+{"id": "q37", "category": "cross-lingue", "question": "What is speaker diarization?", "relevant": ["inf5101:p48"]}
+{"id": "q38", "category": "cross-lingue", "question": "How does the attention mechanism work in Transformers?", "relevant": ["inf5101:p17", "wiki:attention-apprentissage-automatique", "wiki:transformeur"]}
+{"id": "q39", "category": "cross-lingue", "question": "How can I detect objects in an image with bounding boxes?", "relevant": ["inf5101:p32", "wiki:détection-d-objet"]}
+{"id": "q40", "category": "cross-lingue", "question": "What is retrieval-augmented generation?", "relevant": ["inf5101:p20", "wiki:génération-à-enrichissement-contextuel"]}
+{"id": "q41", "category": "cross-lingue", "question": "Why is multimedia data hard to process?", "relevant": ["inf5101:p6"]}
+{"id": "q42", "category": "cross-lingue", "question": "What is a spectrogram?", "relevant": ["inf5101:p41", "wiki:spectrogramme"]}
+{"id": "q43", "category": "cross-lingue", "question": "How should I evaluate a text classifier?", "relevant": ["inf5101:p22", "wiki:précision-et-rappel", "wiki:matrice-de-confusion"]}
+{"id": "q44", "category": "cross-lingue", "question": "How does video captioning work?", "relevant": ["inf5101:p60"]}
+{"id": "q45", "category": "cross-lingue", "question": "What is data augmentation for images?", "relevant": ["inf5101:p27", "wiki:augmentation-de-données"]}
+{"id": "q46", "category": "cross-lingue", "question": "What are word embeddings?", "relevant": ["inf5101:p16", "wiki:word-embedding", "wiki:word2vec"]}
+{"id": "q47", "category": "faute", "question": "c quoi la segmantation d'imaje", "relevant": ["inf5101:p31", "wiki:segmentation-d-image"]}
+{"id": "q48", "category": "faute", "question": "transformé de fourrier courte", "relevant": ["inf5101:p41", "wiki:transformée-de-fourier-à-court-terme"]}
+{"id": "q49", "category": "faute", "question": "reseau de neurone convolutionel pooling", "relevant": ["inf5101:p29", "wiki:réseau-neuronal-convolutif"]}
+{"id": "q50", "category": "faute", "question": "whisper transcripsion multilingue", "relevant": ["inf5101:p47"]}
+{"id": "q51", "category": "faute", "question": "embedings semantiques", "relevant": ["inf5101:p16", "wiki:word-embedding"]}
+{"id": "q52", "category": "hors-domaine", "question": "Quelle est la capitale du Cameroun ?", "relevant": []}
+{"id": "q53", "category": "hors-domaine", "question": "Recette du ndolé aux crevettes", "relevant": []}
+{"id": "q54", "category": "hors-domaine", "question": "Comment déclarer ses impôts en ligne ?", "relevant": []}
+{"id": "q55", "category": "hors-domaine", "question": "Qui a gagné la Coupe d'Afrique des nations 2019 ?", "relevant": []}
+{"id": "q56", "category": "hors-domaine", "question": "Quel est le prix du carburant à Yaoundé ?", "relevant": []}
+{"id": "q57", "category": "hors-domaine", "question": "Comment soigner une entorse à la cheville ?", "relevant": []}
+{"id": "q58", "category": "hors-domaine", "question": "How do I change a car tire?", "relevant": []}
+{"id": "q59", "category": "hors-domaine", "question": "Horaires d'ouverture de la bibliothèque", "relevant": []}
+{"id": "q60", "category": "raisonnement", "question": "Quelle différence entre BERT et GPT ?", "relevant": ["inf5101:p18", "wiki:bert-modèle-de-langage"]}
+{"id": "q61", "category": "raisonnement", "question": "Quel lien entre précision, rappel et matrice de confusion ?", "relevant": ["wiki:précision-et-rappel#1", "wiki:matrice-de-confusion", "inf5101:p22"]}
+{"id": "q62", "category": "raisonnement", "question": "Faut-il donner des MFCC ou des spectrogrammes à un classifieur audio ?", "relevant": ["inf5101:p44", "inf5101:p42", "inf5101:p41"]}
+{"id": "q63", "category": "raisonnement", "question": "En quoi analyser une vidéo est plus difficile qu'analyser une image ?", "relevant": ["inf5101:p53"]}
+{"id": "q64", "category": "raisonnement", "question": "Quelles méthodes de vision n'utilisent pas d'apprentissage profond ?", "relevant": ["inf5101:p28"]}
+{"id": "q65", "category": "raisonnement", "question": "Quelles sont les limites des représentations sac de mots ?", "relevant": ["inf5101:p15", "wiki:sac-de-mots"]}

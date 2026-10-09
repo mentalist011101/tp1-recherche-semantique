@@ -1,0 +1,13 @@
+{
+  "built_at": "2026-10-01T13:58:41+00:00",
+  "corpus_sha256": "863f5b6b6eaa64b27ee9e46b9830cc7af335bfea2d83cba856d807647fcaea3f",
+  "passages": 439,
+  "documents": 111,
+  "encoders": {
+    "gemini": "gemini-embedding-2",
+    "e5-small": "intfloat/multilingual-e5-small",
+    "minilm": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+  },
+  "default_encoder": "gemini",
+  "reranker": "BAAI/bge-reranker-v2-m3"
+}
