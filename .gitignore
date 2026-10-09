@@ -21,3 +21,8 @@ frontend/dist/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Corpus : les PDF ne sont pas redistribués (licences variables), le notebook les retélécharge
+# et data/corpus.csv garde leur empreinte SHA-256.
+data/pdf/
+data/candidates-rerun.csv
