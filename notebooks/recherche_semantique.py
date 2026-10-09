@@ -28,7 +28,12 @@
 
 # %%
 import hashlib
+import json
+import re
 import time
+import unicodedata
+from collections import Counter
+from dataclasses import dataclass
 from pathlib import Path
 
 import httpx
@@ -199,3 +204,378 @@ corpus.groupby("langue")["mots"].describe().round(0)
 # %%
 corpus.to_csv(DATA / "corpus.csv", index=False)
 print(f"{len(corpus)} documents, {corpus['mots'].sum():,} mots au total".replace(",", " "))
+
+# %% [markdown]
+# ## 2. Extraction du texte
+#
+# ### 2.1 Le problème
+#
+# Un PDF ne contient pas de « texte » au sens d'un document Word : il contient des instructions
+# de dessin (tel glyphe, dans telle police, à telle position). L'extraction la plus simple,
+# `page.get_text()`, recolle ces glyphes dans l'ordre où ils ont été dessinés. Voici ce qu'elle
+# donne sur le début de D21 :
+
+# %%
+with pymupdf.open(PDF_DIR / "D21.pdf") as doc:
+    print(doc[0].get_text()[:1200])
+
+# %% [markdown]
+# Tout y est mélangé : auteurs, affiliations, adresse e-mail, et à la fin de la page le filigrane
+# arXiv. Plus loin viendraient les numéros de page, les légendes de figures, les cellules de
+# tableaux et les références. Pour un moteur de recherche, chacun de ces éléments est du bruit :
+#
+# - la **page de garde HAL** est identique pour 15 documents : elle les rapprocherait tous entre eux ;
+# - les **références** contiennent les titres d'autres articles : une question sur la reconnaissance
+#   vocale remonterait un article d'image qui cite un article de reconnaissance vocale ;
+# - le **filigrane**, les **en-têtes** et les **numéros de page** n'ont aucun sens.
+#
+# On veut à la place, pour chaque document : son résumé, et la liste de ses sections (intertitre +
+# texte), sans le reste.
+#
+# ### 2.2 Lecture ligne par ligne avec la mise en forme
+#
+# `page.get_text("dict")` donne, pour chaque ligne, ses fragments (*spans*) avec leur police, leur
+# taille, leur graisse et l'orientation de la ligne. C'est cette mise en forme qui permet de trier :
+#
+# | Élément | Comment on le reconnaît |
+# | --- | --- |
+# | page de garde HAL | première page contenant « HAL Id » |
+# | filigrane arXiv | ligne verticale (`dir` différent de (1, 0)) |
+# | en-têtes, pieds de page | bloc court dans les 7 % du haut ou du bas de la page |
+# | notes de bas de page, affiliations | police nettement plus petite que le corps du texte |
+#
+# Deux défauts de rendu sont corrigés au passage : les petites capitales des articles IEEE, que le
+# PDF découpe en « I NTRODUCTION », et les numéros de section isolés sur leur propre ligne
+# (« 2.1 » puis « Query Augmentation »).
+
+# %%
+BOLD_FONTS = ("bold", "medi", "semibold", "black", "heavy")
+BARE_NUMBER_RE = re.compile(r"^(\d+(\.\d+)*|[IVX]+)\.?$")
+
+
+@dataclass(frozen=True)
+class Line:
+    text: str
+    size: float
+    bold: bool
+
+
+def read_lines(path: Path) -> list[Line]:
+    lines = []
+    with pymupdf.open(path) as doc:
+        for page in doc:
+            if page.number == 0 and "HAL Id" in page.get_text():
+                continue
+            height = page.rect.height
+            for block in page.get_text("dict")["blocks"]:
+                if block["type"] != 0:
+                    continue
+                top, bottom = block["bbox"][1] / height, block["bbox"][3] / height
+                pending_number = ""
+                for line in block["lines"]:
+                    if line["dir"] != (1.0, 0.0):
+                        continue
+                    spans = [s for s in line["spans"] if s["text"].strip()]
+                    text = fix_small_caps(normalize(" ".join(s["text"] for s in spans)))
+                    if not text or (bottom < 0.07 or top > 0.93) and len(text) < 120:
+                        continue
+                    if BARE_NUMBER_RE.match(text):
+                        pending_number = text
+                        continue
+                    text = f"{pending_number} {text}".strip()
+                    pending_number = ""
+                    lines.append(Line(text, max(s["size"] for s in spans), all(is_bold(s) for s in spans)))
+    return lines
+
+
+def normalize(text: str) -> str:
+    # NFKC décompose les ligatures typographiques (« ﬁ » → « fi ») que les PDF LaTeX utilisent partout.
+    return re.sub(r"\s+", " ", unicodedata.normalize("NFKC", text)).strip()
+
+
+def fix_small_caps(text: str) -> str:
+    return re.sub(r"\b([A-ZÀ-Ý]) ([A-ZÀ-Ý]{2,})\b", r"\1\2", text)
+
+
+def is_bold(span: dict) -> bool:
+    return bool(span["flags"] & 16) or any(k in span["font"].lower() for k in BOLD_FONTS)
+
+
+def body_size(lines: list[Line]) -> int:
+    chars = Counter()
+    for line in lines:
+        chars[round(line.size)] += len(line.text)
+    return chars.most_common(1)[0][0]
+
+
+d21 = read_lines(PDF_DIR / "D21.pdf")
+print(f"corps du texte : {body_size(d21)} pt")
+pd.DataFrame(d21[:14])
+
+# %% [markdown]
+# ### 2.3 Reconnaître les intertitres
+#
+# Aucune règle unique ne marche sur 50 articles issus d'une dizaine de gabarits (IEEE, ACM, ACL,
+# Interspeech, GRETSI…). Un intertitre est une ligne qui cumule plusieurs indices :
+#
+# 1. **courte** (moins de 70 caractères), et ce n'est pas une légende (« Figure 3 », « Table 1 ») ;
+# 2. **mise en valeur** : en gras, plus grande que le corps du texte, ou entièrement en majuscules ;
+# 3. **numérotée** (« 2.1 », « III. », « B. ») ou formée d'un **mot-clé** de section
+#    (Introduction, Conclusion, Résumé, Références…) ;
+# 4. **numérotation plausible** : une section suit la précédente (au plus un numéro sauté, au cas
+#    où un intertitre n'aurait pas été reconnu), une sous-section reste dans sa section, et le
+#    style reste le même (« 3. » ne succède pas à « 2 »). Sans ce garde-fou, les lignes d'un
+#    tableau de résultats (« 84.57 CBAM », « 11 UR AIR ») deviendraient des sections.
+
+# %%
+NUMBERED_RE = re.compile(r"^(\d+(\.\d+)*\.?|[IVX]+\.|[A-H]\.)\s+[A-ZÀ-ÖØ-Ý0-9]")
+KEYWORD_RE = re.compile(
+    r"^((\d+|[IVX]+)\.?\s+)?(abstract|résumé|introduction|conclusions?|related works?|references?|références|"
+    r"bibliograph(y|ie)|acknowledge?ments?|remerciements|keywords|index terms|mots[- ]clés|ccs concepts|"
+    r"discussion|results?|résultats|experiments?|expériences|methods?|méthodes?|methodology|méthodologie)\b",
+    re.I,
+)
+CAPTION_RE = re.compile(r"^(fig(ure)?|table|tab)\.?\s*\d", re.I)
+ROMAN = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8, "IX": 9, "X": 10}
+
+
+def is_heading(line: Line, body: int) -> bool:
+    text = line.text
+    if len(text) > 70 or CAPTION_RE.match(text):
+        return False
+    if text.endswith((".", ",", ":")) and not KEYWORD_RE.match(text):
+        return False
+    emphasized = line.bold or line.size >= body + 1 or text.upper() == text
+    return emphasized and bool(NUMBERED_RE.match(text) or KEYWORD_RE.match(text) and len(text) < 40)
+
+
+@dataclass(frozen=True)
+class Numbering:
+    top: int
+    sub: bool
+    dotted: bool
+
+
+def numbering(text: str) -> Numbering | None:
+    match = re.match(r"^(\d+|[IVX]+)((\.\d+)*)(\.?)\s", text)
+    if not match:
+        return None
+    token = match.group(1)
+    top = int(token) if token.isdigit() else ROMAN.get(token, 0)
+    return Numbering(top, bool(match.group(2)), text[len(token)] == ".")
+
+
+def plausible(current: Numbering | None, previous: Numbering | None) -> bool:
+    if current is None or previous is None:
+        return True
+    if current.sub:
+        return current.top == previous.top
+    return previous.top < current.top <= previous.top + 2 and current.dotted == previous.dotted
+
+
+body = body_size(d21)
+candidates = [line.text for line in d21 if is_heading(line, body)]
+print("candidats :", candidates)
+
+kept, previous, started = [], None, False
+for text in candidates:
+    current = numbering(text)
+    if (started or KEYWORD_RE.match(text)) and plausible(current, previous):
+        started = True
+        kept.append(text)
+        if current and not current.sub:
+            previous = current
+print("\nretenus :", kept)
+
+# %% [markdown]
+# ### 2.4 Assembler le document
+#
+# On parcourt les lignes dans l'ordre. Tout ce qui précède le résumé (titre, auteurs, affiliations)
+# est ignoré : le titre officiel vient des métadonnées, plus fiables. Chaque intertitre ouvre une
+# section, chaque ligne de texte s'ajoute à la section en cours, et la lecture s'arrête à
+# « References ». Trois cas particuliers :
+#
+# - le résumé est parfois un intertitre (« Abstract »), parfois en ligne (« Abstract— Dense
+#   retrieval is… », « Résumé – Les réseaux… ») ;
+# - les articles francophones ont souvent deux résumés ; on garde le premier, celui dans la langue
+#   de l'article ;
+# - les mots-clés, remerciements et concepts ACM ne sont pas du contenu : ces sections sont retirées.
+#
+# Les mots coupés en fin de ligne (« conve- nient ») sont recollés à la fin.
+
+# %%
+INLINE_ABSTRACT_RE = re.compile(r"^(abstract|résumé)\s*[-–—:.]\s*", re.I)
+INLINE_META_RE = re.compile(r"^(keywords|mots[- ]clés|index terms|article)\s*[:—–-]", re.I)
+STOP_TITLES = {"references", "reference", "références", "bibliography", "bibliographie"}
+DROP_TITLES = {"acknowledgments", "acknowledgements", "acknowledgment", "remerciements", "keywords",
+               "index terms", "mots-clés", "mots clés", "ccs concepts"}
+ABSTRACT_TITLES = {"abstract", "résumé"}
+MIN_SECTION_WORDS = 20
+
+
+def extract_document(path: Path) -> dict:
+    lines = read_lines(path)
+    body = body_size(lines)
+    sections, started, previous, references = [], False, None, False
+    for line in lines:
+        if line.size < 0.75 * body:
+            continue
+        inline = INLINE_ABSTRACT_RE.match(line.text)
+        if inline and len(line.text) > 40:
+            started = True
+            sections.append({"titre": inline.group(1), "lignes": [line.text[inline.end():]]})
+            continue
+        if started and INLINE_META_RE.match(line.text):
+            # Le corps de certains articles courts (CORIA) n'a aucun intertitre après les mots-clés.
+            sections.append({"titre": "Corps du texte", "lignes": []})
+            continue
+        current = numbering(line.text)
+        if is_heading(line, body) and plausible(current, previous) and (started or KEYWORD_RE.match(line.text)):
+            started = True
+            if current and not current.sub:
+                previous = current
+            if bare_title(line.text) in STOP_TITLES:
+                references = True
+                break
+            sections.append({"titre": line.text, "lignes": []})
+        elif sections:
+            sections[-1]["lignes"].append(line.text)
+
+    sections = [{"titre": s["titre"], "texte": dehyphenate(" ".join(s["lignes"]))} for s in sections]
+    abstracts = [s["texte"] for s in sections if bare_title(s["titre"]) in ABSTRACT_TITLES]
+    excluded = ABSTRACT_TITLES | DROP_TITLES
+    content = [
+        s for s in sections
+        if bare_title(s["titre"]) not in excluded and len(s["texte"].split()) >= MIN_SECTION_WORDS
+    ]
+    return {"resume": abstracts[0] if abstracts else "", "sections": content, "references_coupees": references}
+
+
+def bare_title(title: str) -> str:
+    return re.sub(r"^([\dIVX]+(\.\d+)*\.?\s+)", "", title).strip(" .:-—").lower()
+
+
+def dehyphenate(text: str) -> str:
+    return re.sub(r"(\w)- ([a-zà-ÿ])", r"\1\2", text)
+
+
+d21_doc = extract_document(PDF_DIR / "D21.pdf")
+print("RÉSUMÉ :", d21_doc["resume"][:300], "…\n")
+for section in d21_doc["sections"]:
+    print(f"{section['titre']:<45} {len(section['texte'].split()):>5} mots")
+
+# %% [markdown]
+# ### 2.5 Application au corpus et contrôle
+#
+# On contrôle chaque document sur trois points : un résumé trouvé, les références coupées, et la
+# part du texte conservée par rapport au texte brut de la section 1.
+
+# %%
+documents = {row.doc_id: extract_document(PDF_DIR / f"{row.doc_id}.pdf") for row in corpus.itertuples()}
+
+report = pd.DataFrame([
+    {
+        "doc_id": doc_id,
+        "resume": bool(doc["resume"]),
+        "references_coupees": doc["references_coupees"],
+        "sections": len(doc["sections"]),
+        "mots_gardes": len(doc["resume"].split()) + sum(len(s["texte"].split()) for s in doc["sections"]),
+    }
+    for doc_id, doc in documents.items()
+]).merge(corpus[["doc_id", "langue", "mots"]], on="doc_id")
+report["part_gardee"] = (report["mots_gardes"] / report["mots"]).round(2)
+report[["resume", "references_coupees"]].sum()
+
+# %%
+report.describe().loc[["mean", "min", "max"], ["sections", "mots_gardes", "part_gardee"]].round(2)
+
+# %%
+report.sort_values("part_gardee").head(8)
+
+# %%
+report.loc[~report["references_coupees"], ["doc_id", "sections", "part_gardee"]]
+
+# %% [markdown]
+# **Lecture.**
+#
+# - Les 50 résumés sont trouvés, et les références sont coupées dans 49 documents. Dans le
+#   dernier (D47), elles sont en petite police et déjà écartées par le filtre de taille.
+# - En moyenne, 77 % du texte brut est conservé. Le reste correspond à ce qu'on voulait retirer :
+#   références, tableaux, en-têtes, affiliations, page de garde.
+# - Les parts les plus basses concernent les articles HAL, qui perdent en plus leur page de garde
+#   et leur second résumé (en anglais). Le cas limite est celui des « articles déjà publiés » de
+#   CORIA (D45, D46) : un résumé étendu sans intertitres, qui tient en une seule section.
+#
+# **Limite connue.** Quand un intertitre n'est pas reconnu (gras absent, mise en page atypique),
+# son texte n'est pas perdu : il rejoint la section précédente. Le découpage en passages
+# (section 3) ne dépendra donc pas de la finesse de ce découpage en sections.
+
+# %% [markdown]
+# ### 2.6 Version moderne : `pymupdf4llm`
+#
+# [`pymupdf4llm`](https://pymupdf.readthedocs.io/en/latest/pymupdf4llm/) convertit un PDF en
+# Markdown pensé pour les LLM et le RAG : intertitres en `#`, gras, listes, tableaux en Markdown.
+# Il s'appuie sur la même bibliothèque, avec des heuristiques de mise en page plus poussées (ordre
+# de lecture, détection des tableaux). On le compare à notre extraction sur quatre gabarits
+# différents (Interspeech, IEEE, ACM, GRETSI).
+
+# %%
+import pymupdf4llm
+
+comparison = []
+for doc_id in ["D21", "D05", "D07", "D36"]:
+    start = time.perf_counter()
+    extract_document(PDF_DIR / f"{doc_id}.pdf")
+    ours = time.perf_counter() - start
+    start = time.perf_counter()
+    markdown = pymupdf4llm.to_markdown(PDF_DIR / f"{doc_id}.pdf", show_progress=False)
+    elapsed = time.perf_counter() - start
+    headings = [h.strip("#* ").strip() for h in re.findall(r"^#+ .+$", markdown, re.M)]
+    comparison.append({
+        "doc_id": doc_id,
+        "intertitres_pymupdf4llm": len(headings),
+        "sections_maison": len(documents[doc_id]["sections"]),
+        "secondes_maison": round(ours, 1),
+        "secondes_pymupdf4llm": round(elapsed, 1),
+        "references_dans_le_markdown": any(bare_title(h) in STOP_TITLES for h in headings),
+        "page_de_garde_hal": "HAL Id" in markdown,
+    })
+pd.DataFrame(comparison)
+
+# %%
+print(markdown[:1500])
+
+# %% [markdown]
+# **Ce que montre la comparaison.**
+#
+# - `pymupdf4llm` reconnaît davantage d'intertitres, et restitue le gras, l'italique et les
+#   tableaux : c'est le bon outil quand on veut donner le texte à un LLM qui saura en tirer parti.
+# - Il ne sait pas ce qu'est un article scientifique : la page de garde HAL, les auteurs, les
+#   affiliations et les références restent dans le Markdown. Il faudrait les retirer après coup,
+#   avec les mêmes règles qu'aux sections 2.3 et 2.4.
+# - Il est bien plus lent sur cette machine (analyse de la mise en page de chaque page).
+#
+# On garde notre extraction : elle produit exactement ce dont le moteur a besoin (résumé et
+# sections, sans bruit), et chaque règle est justifiée et vérifiable.
+
+# %% [markdown]
+# ### 2.7 Sauvegarde
+#
+# Un document par ligne (JSON Lines), avec les métadonnées qui serviront à afficher les résultats.
+
+# %%
+meta = corpus.set_index("doc_id")
+with open(DATA / "documents.jsonl", "w", encoding="utf-8") as f:
+    for doc_id, doc in documents.items():
+        record = {
+            "doc_id": doc_id,
+            "titre": meta.loc[doc_id, "titre"],
+            "langue": meta.loc[doc_id, "langue"],
+            "modalite": meta.loc[doc_id, "modalite"],
+            "annee": int(meta.loc[doc_id, "annee"]),
+            "url": meta.loc[doc_id, "url"],
+            "resume": doc["resume"],
+            "sections": doc["sections"],
+        }
+        f.write(json.dumps(record, ensure_ascii=False) + "\n")
+print(f"{len(documents)} documents écrits dans data/documents.jsonl")
