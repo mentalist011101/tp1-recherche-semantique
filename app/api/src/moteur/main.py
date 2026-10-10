@@ -8,8 +8,6 @@ from typing import Annotated
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException, Query, Request
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 from langchain_pinecone import PineconeEmbeddings, PineconeVectorStore
 from pydantic import BaseModel
 
@@ -114,22 +112,11 @@ def create_app(store: VectorStore | None = None, static_dir: Path | None = None)
         )
 
     if static_dir is not None:
-        _mount_spa(app, static_dir)
+        # Les routes du front (React Router, ex. /corpus) n'existent pas côté serveur : une
+        # navigation vers un chemin inconnu reçoit index.html. Sur Vercel, ces fichiers sont
+        # servis par le CDN, sans passer par la fonction.
+        app.frontend("/", directory=static_dir, fallback="index.html")
     return app
-
-
-def _mount_spa(app: FastAPI, static_dir: Path) -> None:
-    app.mount("/assets", StaticFiles(directory=static_dir / "assets"), name="assets")
-    index = static_dir / "index.html"
-
-    # Les routes du front (React Router) n'existent pas côté serveur : tout chemin inconnu
-    # renvoie index.html, sauf un vrai fichier présent à la racine (favicon…).
-    @app.get("/{path:path}", include_in_schema=False)
-    def spa(path: str) -> FileResponse:
-        candidate = (static_dir / path).resolve()
-        if path and candidate.is_file() and candidate.is_relative_to(static_dir.resolve()):
-            return FileResponse(candidate)
-        return FileResponse(index)
 
 
 def build() -> FastAPI:

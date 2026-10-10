@@ -4,7 +4,7 @@ version = "1.0.0"
 description = "API du moteur de recherche d'articles scientifiques (INF5101, TP texte)"
 requires-python = ">=3.12,<3.13"
 dependencies = [
-    "fastapi>=0.115",
+    "fastapi>=0.143",
     "langchain-pinecone>=0.2",
     "python-dotenv>=1.0",
     "uvicorn[standard]>=0.30",
@@ -35,3 +35,7 @@ extend-immutable-calls = ["fastapi.Depends", "fastapi.Query"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.vercel.fastapi.static]
+# Le middleware GZip ferait garder le front dans la fonction : on le veut sur le CDN.
+cdn = true

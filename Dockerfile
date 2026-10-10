@@ -1,6 +1,6 @@
-# Image unique pour Hugging Face Spaces (SDK Docker) : le front React est compilé, puis servi
-# par FastAPI à côté de l'API. Le Space construit l'image lui-même, aucun Docker local requis.
-# Les embeddings sont calculés par Pinecone : l'image ne contient ni torch ni modèle.
+# Image unique pour un hébergeur de conteneurs (Render, Fly.io, Hugging Face Spaces PRO) : le
+# front React est compilé, puis servi par FastAPI à côté de l'API. Les embeddings sont calculés
+# par Pinecone : l'image ne contient ni torch ni modèle.
 
 FROM node:22-slim AS web
 WORKDIR /web
@@ -13,7 +13,7 @@ RUN pnpm build
 FROM python:3.12-slim
 COPY --from=ghcr.io/astral-sh/uv:0.11 /uv /usr/local/bin/uv
 
-# Spaces exécute le conteneur avec l'UID 1000 : tout ce qui est écrit au runtime doit lui appartenir.
+# Utilisateur non root (UID 1000, celui qu'impose Hugging Face Spaces).
 RUN useradd -m -u 1000 user
 USER user
 ENV HOME=/home/user \

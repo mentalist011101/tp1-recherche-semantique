@@ -36,7 +36,7 @@ réglages de l'application suivent.
 | `catalog.py` | Charge et valide `articles.json` et `settings.json` (Pydantic) |
 | `search.py` | Interroge Pinecone, regroupe les passages par article, nettoie le Markdown pour l'affichage |
 | `ratelimit.py` | Limite chaque visiteur à 20 recherches par minute, pour protéger le quota gratuit |
-| `main.py` | Routes, et service du front compilé en production |
+| `main.py` | Routes, et service du front compilé (`app.frontend()`) en production |
 
 | Route | Réponse |
 | --- | --- |
@@ -60,6 +60,8 @@ reprise de l'application précédente. Trois pages :
 
 ## Déploiement
 
-Une seule image Docker (voir [developpement.md](developpement.md)) : le front est compilé dans une
-première étape, puis servi par FastAPI à côté de l'API. L'image ne contient ni torch ni modèle :
-les embeddings des questions sont calculés par Pinecone.
+Sur Vercel, l'API devient une fonction Python (point d'entrée `app/api/index.py`) et le front
+compilé est servi par le CDN grâce à `app.frontend()` de FastAPI. Aucun modèle ne tourne dans la
+fonction : les embeddings des questions sont calculés par Pinecone. Le `Dockerfile` produit la
+même application dans une image unique, pour un hébergeur de conteneurs. Voir
+[developpement.md](developpement.md).

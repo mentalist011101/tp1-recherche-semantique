@@ -50,16 +50,25 @@ réseau ni clé.
 La CI GitHub Actions lance ces trois vérifications. Elle ne réexécute pas le notebook, qui
 interroge Pinecone avec une clé privée : ses sorties versionnées font foi.
 
-## Déploiement sur Hugging Face Spaces
+## Déploiement sur Vercel
 
-Docker n'a pas besoin d'être installé : le Space construit l'image lui-même.
+L'application est une seule fonction Python Vercel (FastAPI) qui sert aussi le front :
+
+- `app/api/index.py` est le point d'entrée que Vercel détecte : il expose l'instance `app` ;
+- `app/api/vercel.json` compile le front (`app/web`) et copie le résultat dans `app/api/dist`,
+  que `app.frontend()` sert depuis le CDN de Vercel, avec repli sur `index.html` pour les routes
+  du front (`/corpus`, `/a-propos`) ;
+- la clé Pinecone est une variable d'environnement du projet Vercel, `PINECONE_API_KEY`.
 
 ```bash
-# HF_TOKEN : jeton Hugging Face avec droit d'écriture, dans l'environnement ou le .env
-uv run --with huggingface-hub python scripts/deploy_space.py \
-    --space <utilisateur>/semantica-articles \
-    --repository https://github.com/mentalist011101/tp1-recherche-semantique
+npx vercel login
+npx vercel link                      # projet Vercel, dossier racine : app/api
+npx vercel env add PINECONE_API_KEY production
+npx vercel deploy --prod
 ```
 
-Le script crée le Space (SDK Docker) s'il n'existe pas, y pousse la clé Pinecone en secret, puis
-téléverse uniquement le `Dockerfile` et `app/`, avec un README propre au Space.
+Le projet Vercel est configuré avec `app/api` comme dossier racine, en incluant les fichiers hors
+de ce dossier (nécessaire pour compiler `app/web`).
+
+Le `Dockerfile` à la racine produit la même application dans une image unique, pour un hébergeur
+de conteneurs (Render, Fly.io, Hugging Face Spaces avec l'offre PRO).

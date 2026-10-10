@@ -88,7 +88,7 @@ flowchart LR
 | Notebook | pymupdf4llm, LangChain, Pinecone, ranx, bm25s, pandas |
 | API | FastAPI, langchain-pinecone, Pydantic |
 | Interface | React 19, TypeScript, Vite, Tailwind CSS 4, TanStack Query |
-| Déploiement | Docker sur Hugging Face Spaces, CI GitHub Actions |
+| Déploiement | Vercel (fonction Python et CDN), CI GitHub Actions |
 
 ## Démarrage rapide
 
@@ -119,7 +119,7 @@ data/        sélection du corpus, métadonnées, questions d'évaluation (PDF e
 app/api/     API FastAPI (package `moteur`) et données exportées par le notebook
 app/web/     application React
 docs/        documentation
-scripts/     collecte des candidats, déploiement sur Hugging Face Spaces
+scripts/     collecte des candidats
 legacy-app/  première version (recherche sur les slides du cours), archivée
 ```
 
