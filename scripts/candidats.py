@@ -15,21 +15,36 @@ NS = {"a": "http://www.w3.org/2005/Atom", "x": "http://arxiv.org/schemas/atom"}
 
 ARXIV = {
     "texte": [
-        'abs:"dense retrieval"', 'abs:"sentence embeddings"', 'abs:"retrieval-augmented generation"',
-        'abs:"cross-lingual retrieval"', 'abs:"BM25" AND abs:"neural"', 'abs:"question answering" AND abs:"retrieval"',
+        'abs:"dense retrieval"',
+        'abs:"sentence embeddings"',
+        'abs:"retrieval-augmented generation"',
+        'abs:"cross-lingual retrieval"',
+        'abs:"BM25" AND abs:"neural"',
+        'abs:"question answering" AND abs:"retrieval"',
     ],
     "image": [
-        'abs:"convolutional neural network" AND abs:"image classification"', 'abs:"object detection"',
-        'abs:"semantic segmentation"', 'abs:"content-based image retrieval"', 'abs:"optical character recognition"',
+        'abs:"convolutional neural network" AND abs:"image classification"',
+        'abs:"object detection"',
+        'abs:"semantic segmentation"',
+        'abs:"content-based image retrieval"',
+        'abs:"optical character recognition"',
         'abs:"vision transformer"',
     ],
     "audio": [
-        'abs:"automatic speech recognition"', 'abs:"speaker verification"', 'abs:"MFCC"',
-        'abs:"sound event detection"', 'abs:"speech emotion recognition"', 'abs:"music information retrieval"',
+        'abs:"automatic speech recognition"',
+        'abs:"speaker verification"',
+        'abs:"MFCC"',
+        'abs:"sound event detection"',
+        'abs:"speech emotion recognition"',
+        'abs:"music information retrieval"',
     ],
     "multimodal": [
-        'abs:"CLIP" AND abs:"image-text"', 'abs:"video captioning"', 'abs:"audio-visual"',
-        'abs:"multimodal retrieval"', 'abs:"visual question answering"', 'abs:"text-to-audio retrieval"',
+        'abs:"CLIP" AND abs:"image-text"',
+        'abs:"video captioning"',
+        'abs:"audio-visual"',
+        'abs:"multimodal retrieval"',
+        'abs:"visual question answering"',
+        'abs:"text-to-audio retrieval"',
     ],
 }
 
@@ -59,12 +74,20 @@ for modality, queries in ARXIV.items():
             if aid in seen:
                 continue
             seen.add(aid)
-            rows.append({
-                "source": "arxiv", "id": aid, "langue": "en", "modalite": modality, "requete": q,
-                "pages": m.group(1), "annee": e.findtext("a:published", "", NS)[:4],
-                "titre": " ".join(e.findtext("a:title", "", NS).split()), "venue": comment[:120],
-                "url": f"https://arxiv.org/pdf/{aid}",
-            })
+            rows.append(
+                {
+                    "source": "arxiv",
+                    "id": aid,
+                    "langue": "en",
+                    "modalite": modality,
+                    "requete": q,
+                    "pages": m.group(1),
+                    "annee": e.findtext("a:published", "", NS)[:4],
+                    "titre": " ".join(e.findtext("a:title", "", NS).split()),
+                    "venue": comment[:120],
+                    "url": f"https://arxiv.org/pdf/{aid}",
+                }
+            )
             kept += 1
             if kept == 6:
                 break
@@ -73,9 +96,12 @@ for modality, queries in ARXIV.items():
 
 for conf, modalities in HAL_CONF.items():
     params = {
-        "q": f'conferenceTitle_t:"{conf}"', "fq": ["language_s:fr", "submitType_s:file", "docType_s:COMM"],
+        "q": f'conferenceTitle_t:"{conf}"',
+        "fq": ["language_s:fr", "submitType_s:file", "docType_s:COMM"],
         "fl": "halId_s,title_s,page_s,producedDateY_i,conferenceTitle_s,fileMain_s,keyword_s",
-        "rows": 300, "sort": "producedDateY_i desc", "wt": "json",
+        "rows": 300,
+        "sort": "producedDateY_i desc",
+        "wt": "json",
     }
     url = "https://api.archives-ouvertes.fr/search/?" + urllib.parse.urlencode(params, doseq=True)
     docs = json.load(urllib.request.urlopen(url, timeout=60))["response"]["docs"]
@@ -87,11 +113,20 @@ for conf, modalities in HAL_CONF.items():
         n = int(m.group(2)) - int(m.group(1)) + 1
         if not 2 <= n <= 6:
             continue
-        rows.append({
-            "source": "hal", "id": d["halId_s"], "langue": "fr", "modalite": "/".join(modalities), "requete": conf,
-            "pages": n, "annee": d.get("producedDateY_i", ""), "titre": d["title_s"][0],
-            "venue": d.get("conferenceTitle_s", ""), "url": d.get("fileMain_s", ""),
-        })
+        rows.append(
+            {
+                "source": "hal",
+                "id": d["halId_s"],
+                "langue": "fr",
+                "modalite": "/".join(modalities),
+                "requete": conf,
+                "pages": n,
+                "annee": d.get("producedDateY_i", ""),
+                "titre": d["title_s"][0],
+                "venue": d.get("conferenceTitle_s", ""),
+                "url": d.get("fileMain_s", ""),
+            }
+        )
         kept += 1
     print(conf, len(docs), kept, file=sys.stderr)
 

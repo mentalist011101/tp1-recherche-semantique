@@ -1,0 +1,26 @@
+{
+ "index": "inf5101-articles",
+ "embedding_model": "multilingual-e5-large",
+ "k_passages": 60,
+ "abstention_threshold": 0.838,
+ "passages": 1196,
+ "evaluation": {
+  "questions": 32,
+  "pinecone": {
+   "hit_rate@1": 0.938,
+   "hit_rate@5": 1.0,
+   "mrr@10": 0.953,
+   "ndcg@10": 0.964
+  },
+  "bm25": {
+   "hit_rate@1": 0.688,
+   "hit_rate@5": 0.781,
+   "mrr@10": 0.734,
+   "ndcg@10": 0.749
+  },
+  "biais_langue": {
+   "fr": 0.73,
+   "en": 0.12
+  }
+ }
+}
