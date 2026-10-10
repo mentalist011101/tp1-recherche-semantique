@@ -1,0 +1,41 @@
+question_id,question,langue,type,articles_pertinents
+F01,How can dense retrieval handle queries that contain misspelled words?,en,factuelle,D01
+F02,Is inverse document frequency information encoded in BERT-based neural ranking models?,en,factuelle,D07
+F03,How does SimCSE use dropout to build positive pairs for contrastive learning of sentence embeddings?,en,factuelle,D03
+F04,Jailbreak attacks on large language models through retrieval augmented generation poisoning,en,factuelle,D05
+F05,Which challenge evaluates object detection with estimates of spatial and semantic uncertainty?,en,factuelle,D12
+F06,Temporal and frequential attention model for sound event detection,en,factuelle,D24
+F07,Self-supervised tempo estimation in music,en,factuelle,D27
+F08,Data leakage between training and test sets of the SoundDesc dataset for text-based audio retrieval,en,factuelle,D35
+F09,Tatouage numérique et stéganographie dans les contenus multimédia,fr,factuelle,D42
+F10,Accélérer des réseaux de neurones convolutifs sur FPGA par une méthode de pliage,fr,factuelle,D37
+F11,Oubli catastrophique des modèles neuronaux de recherche d'information,fr,factuelle,D49
+F12,Déréverbération de la parole sans disposer de paires de signaux secs et réverbérants,fr,factuelle,D41
+P01,My search engine fails when users make typos in their queries. What can help?,en,paraphrase,D01
+P02,How can I find out why a neural ranker decided that a document matches a query?,en,paraphrase,D08
+P03,Running a picture classifier on the onboard computer of a self-driving car with very little compute,en,paraphrase,D10
+P04,Can artificially generated pictures replace collecting more labelled photos when my dataset is tiny?,en,paraphrase,D11
+P05,Guessing how someone feels from their voice with a model small enough for a device,en,paraphrase,D26;D23
+P06,Automatically writing a sentence that describes what happens in a video clip,en,paraphrase,D30
+P07,Finding items in an online shop using both product photos and text,en,paraphrase,D32
+P08,Using drone footage to answer questions about the destruction after a hurricane,en,paraphrase,D33
+P09,Réduire le débit d'un codec audio à base de réseaux de neurones en transformant ses représentations internes,fr,paraphrase,D40
+P10,Rendre les œuvres des musées accessibles aux personnes aveugles ou malvoyantes,fr,paraphrase,D43
+C01,Comment vérifier qu'un système d'authentification par la voix résiste à des voix falsifiées ?,fr,cross-lingue,D21
+C02,Les coefficients MFCC contiennent-ils une information sur la prosodie ?,fr,cross-lingue,D22
+C03,Améliorer la reconnaissance de caractères en augmentant la résolution des images de texte,fr,cross-lingue,D16
+C04,Segmenter des objets sans entraînement spécifique en combinant SAM et CLIP,fr,cross-lingue,D29
+C05,Retrouver des sons à partir d'une description en langage naturel,fr,cross-lingue,D34;D35
+C06,Reconnaissance de la parole en continu avec une faible latence,fr,cross-lingue,D20
+C07,Recherche d'images par le contenu dans de grandes bases de données,fr,cross-lingue,D14;D15
+C08,Neural network compression of satellite images,en,cross-lingue,D39
+C09,Retrieval augmented generation over digitized historical newspapers,en,cross-lingue,D46
+C10,Conversational search with sparse neural representations,en,cross-lingue,D48
+H01,Comment fonctionne la blockchain du Bitcoin ?,fr,hors_corpus,
+H02,How to train a reinforcement learning agent to play chess?,en,hors_corpus,
+H03,Quelle est la recette traditionnelle du ndolé ?,fr,hors_corpus,
+H04,How do compilers optimize loops in C programs?,en,hors_corpus,
+H05,Comment prévoir la consommation électrique à partir de séries temporelles ?,fr,hors_corpus,
+H06,Protein structure prediction with deep learning,en,hors_corpus,
+H07,Quelles sont les règles du hors-jeu au football ?,fr,hors_corpus,
+H08,Graph neural networks for friend recommendation in social networks,en,hors_corpus,
