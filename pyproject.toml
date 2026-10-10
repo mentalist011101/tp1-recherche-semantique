@@ -5,13 +5,17 @@ description = "Moteur de recherche sémantique sur un corpus d'articles scientif
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "arxiv>=2.1",
+    "bm25s>=0.3.13",
     "httpx>=0.27",
     "ipykernel>=6.29",
+    "langchain-pinecone>=0.2.13",
     "langchain-text-splitters>=1.1.3",
     "matplotlib>=3.9",
     "pandas>=2.2",
     "pymupdf>=1.24",
     "pymupdf4llm>=1.28.2",
+    "python-dotenv>=1.2.4",
+    "ranx>=0.3.21",
 ]
 
 [dependency-groups]
