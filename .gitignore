@@ -27,3 +27,6 @@ Thumbs.db
 data/pdf/
 data/candidates-rerun.csv
 data/markdown/
+
+.vercel
+.env*

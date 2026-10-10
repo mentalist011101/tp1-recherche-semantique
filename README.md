@@ -6,7 +6,7 @@
 
 TP 1 · Traitement multimédia des données (INF5101) · Module texte · ENSPY
 
-[Application en ligne](__SPACE_URL__) · [Notebook](notebooks/recherche_semantique.ipynb) · [Documentation](docs/)
+[Application en ligne](https://semantica-articles.vercel.app) · [Notebook](notebooks/recherche_semantique.ipynb) · [Documentation](docs/)
 
 </div>
 

@@ -6,7 +6,7 @@ import type { FormEvent } from "react";
 export function SearchBar({
 	initial,
 	onSubmit,
-	placeholder = "Comment un modèle sait-il qui parle dans un enregistrement ?",
+	placeholder = "Posez une question",
 	size = "large",
 	busy = false,
 }: {

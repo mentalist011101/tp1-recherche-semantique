@@ -15,7 +15,7 @@ const SUGGESTIONS = [
 	"Comment rendre un réseau embarqué robuste aux fautes matérielles ?",
 	"How can a speaker verification system resist spoofing attacks?",
 	"Retrieval augmented generation over historical newspapers",
-	"Reconnaître une émotion dans la voix avec un petit modèle",
+	"Améliorer la reconnaissance de caractères en augmentant la résolution des images de texte",
 ];
 
 export function SearchPage() {
@@ -163,7 +163,7 @@ function Hero({
 				</p>
 
 				<div className="mt-9 max-w-xl">
-					<SearchBar initial="" onSubmit={onSubmit} placeholder="Comment détecter des voix falsifiées ?" />
+					<SearchBar initial="" onSubmit={onSubmit} placeholder="Comment vérifier qu'une authentification par la voix résiste aux voix falsifiées ?" />
 				</div>
 
 				<div className="mt-5 flex max-w-xl flex-wrap gap-2">
