@@ -26,3 +26,4 @@ Thumbs.db
 # et data/corpus.csv garde leur empreinte SHA-256.
 data/pdf/
 data/candidates-rerun.csv
+data/markdown/
