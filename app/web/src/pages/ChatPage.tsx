@@ -79,7 +79,7 @@ export function ChatPage() {
 	return (
 		<div className="mx-auto max-w-4xl">
 			<PageHeader eyebrow="Génération augmentée" title="Poser une question aux articles">
-				La réponse est rédigée par {stats.data?.settings.llm_model ?? "Gemini Flash"} à partir des seuls passages
+				La réponse est rédigée par {stats.data?.settings.llm_model ?? "gpt-oss-120b"} à partir des seuls passages
 				retrouvés dans le corpus, et cite ses sources. Si aucun article ne traite le sujet, le modèle n'est pas
 				interrogé. Chaque question est indépendante des précédentes.
 			</PageHeader>

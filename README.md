@@ -16,7 +16,7 @@ Un étudiant pose une question, en français ou en anglais ; le moteur lui indiq
 lire parmi 50 articles scientifiques sur le texte, l'image, l'audio et le multimodal, avec le
 passage qui justifie chaque résultat. Une question française trouve un article anglais, et le
 moteur prévient quand aucun article ne traite le sujet. Un onglet Chat fait rédiger la réponse par
-Gemini Flash à partir des passages retrouvés (RAG), sources citées.
+gpt-oss-120b (servi par Groq) à partir des passages retrouvés (RAG), sources citées.
 
 ## Le sujet
 
@@ -42,7 +42,7 @@ corpus l'exige.
 | 5 | Recherche | `PineconeVectorStore` | Remonter des passages aux articles |
 | 6 | Évaluation | `ranx`, `bm25s` | 40 questions annotées |
 | 7 | Analyse des erreurs | pandas, matplotlib | Causes des erreurs, biais de langue, seuil d'abstention |
-| 8 | Génération augmentée (RAG) | LangChain, Gemini Flash | Aucun appel au modèle sous le seuil d'abstention ; sources tirées des métadonnées |
+| 8 | Génération augmentée (RAG) | LangChain, gpt-oss-120b (Groq) | Aucun appel au modèle sous le seuil d'abstention ; sources tirées des métadonnées |
 | 9 | Export pour l'application | — | — |
 
 ## Résultats
@@ -87,7 +87,7 @@ flowchart LR
 
 | Couche | Technologies |
 | --- | --- |
-| Notebook | pymupdf4llm, LangChain, Pinecone, ranx, bm25s, Gemini, pandas |
+| Notebook | pymupdf4llm, LangChain, Pinecone, ranx, bm25s, Groq, pandas |
 | API | FastAPI, langchain-pinecone, langchain-google-genai, Pydantic |
 | Interface | React 19, TypeScript, Vite, Tailwind CSS 4, TanStack Query |
 | Déploiement | Vercel (fonction Python et CDN), CI GitHub Actions |
@@ -95,7 +95,7 @@ flowchart LR
 ## Démarrage rapide
 
 ```bash
-# Clés dans .env à la racine : PINECONE_API_KEY=... et GEMINI_API_KEY=...
+# Clés dans .env à la racine : PINECONE_API_KEY=... et GROQ_API_KEY=...
 uv sync && uv run --with jupyterlab jupyter lab      # le notebook
 cd app/api && uv sync && uv run uvicorn moteur.main:build --factory   # l'API, port 8000
 cd app/web && pnpm install && pnpm dev                # le front, http://localhost:5173
@@ -133,6 +133,6 @@ legacy-app/  première version (recherche sur les slides du cours), archivée
   vers chaque article chez son éditeur.
 - Modèle d'embedding : [multilingual-e5-large](https://huggingface.co/intfloat/multilingual-e5-large),
   servi par [Pinecone Inference](https://docs.pinecone.io/guides/inference/understanding-inference).
-- Génération : Gemini Flash, par l'[API Gemini](https://ai.google.dev/gemini-api/docs).
+- Génération : [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b), servi par [Groq](https://console.groq.com).
 
 Code sous licence MIT.

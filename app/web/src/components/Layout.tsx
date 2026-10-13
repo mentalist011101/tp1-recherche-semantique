@@ -212,7 +212,7 @@ function Footer() {
 			<div className="border-t border-rule">
 				<div className="shell flex flex-col gap-3 py-6 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
 					<p>Corpus : 50 articles en accès libre sur arXiv et HAL, consultables chez leurs auteurs.</p>
-					<p className="font-mono">LangChain · Pinecone · Gemini · FastAPI · React</p>
+					<p className="font-mono">LangChain · Pinecone · Groq · FastAPI · React</p>
 				</div>
 			</div>
 		</footer>

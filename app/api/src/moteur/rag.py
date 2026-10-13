@@ -15,13 +15,18 @@ SYSTEM_PROMPT = """Tu es l'assistant d'un moteur de recherche d'articles scienti
 multimédia (texte, image, audio, multimodal).
 Réponds à la question uniquement à partir des passages numérotés fournis, jamais de tes connaissances.
 - Réponds dans la langue de la question, en quelques phrases claires.
-- Cite les passages utilisés par leur numéro entre crochets, par exemple [1] ou [2][4].
+- Cite les passages utilisés par leur numéro entre crochets droits, exactement sous la forme [1] ou [2][4].
 - Si les passages ne suffisent pas pour répondre, dis-le franchement au lieu de compléter.
-- Termine par une ligne « Sources : » suivie des numéros réellement utilisés."""
+- Termine par une ligne « Sources : » suivie des numéros réellement utilisés, au même format, par exemple « Sources : [1][3] »."""
 
 PROMPT = ChatPromptTemplate.from_messages(
     [("system", SYSTEM_PROMPT), ("human", "Passages :\n\n{context}\n\nQuestion : {question}")]
 )
+
+
+# gpt-oss cite parfois avec les crochets pleine chasse « 【1】 » malgré la consigne : on les
+# ramène à « [1] », le format que le front sait relier aux sources.
+FULLWIDTH_BRACKETS = str.maketrans({"【": "[", "】": "]"})
 
 
 @dataclass(frozen=True)
@@ -47,7 +52,7 @@ def stream_answer(
             {"context": format_context(passages, articles), "question": question}
         ):
             if chunk.text:
-                yield chunk.text
-    except Exception as error:  # frontière réseau : Gemini indisponible, quota, clé invalide
-        logger.exception("Génération Gemini impossible")
+                yield chunk.text.translate(FULLWIDTH_BRACKETS)
+    except Exception as error:  # frontière réseau : Groq indisponible, quota, clé invalide
+        logger.exception("Génération impossible")
         yield GenerationFailure(f"{type(error).__name__}: {error}")

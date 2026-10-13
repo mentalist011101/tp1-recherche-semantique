@@ -79,8 +79,8 @@ refusées et questions avec réponse acceptées. Les limites de ce seuil sont di
 
 ## 8. Génération augmentée (RAG)
 
-L'onglet Chat et la section 8 du notebook font rédiger une réponse par Gemini Flash (température
-0,2) à partir des 6 passages les plus proches de la question, présentés avec leur article, leur
+L'onglet Chat et la section 8 du notebook font rédiger une réponse par `openai/gpt-oss-120b`,
+servi par Groq (température 0,2, raisonnement court) à partir des 6 passages les plus proches de la question, présentés avec leur article, leur
 année, leur langue et leur section. La consigne impose de répondre uniquement à partir de ces
 passages, dans la langue de la question, de citer les passages par numéro (`[2]`) et de dire
 franchement quand ils ne suffisent pas.
@@ -96,3 +96,9 @@ Deux garde-fous :
 
 Les questions sont indépendantes : chaque question déclenche sa propre recherche, sans
 reformulation à partir de l'historique.
+
+Choix du modèle : Gemini Flash avait été retenu d'abord, mais son offre gratuite plafonne à 20
+requêtes par jour, épuisées en une journée de tests ; au-delà, l'API réessaie pendant une
+trentaine de secondes puis échoue. gpt-oss-120b sur Groq répond en environ 2 secondes. Ce modèle
+cite parfois avec des crochets pleine chasse (« 【1】 ») malgré la consigne : ils sont ramenés à
+« [1] » avant affichage.

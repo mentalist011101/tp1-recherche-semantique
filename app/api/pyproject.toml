@@ -5,7 +5,7 @@ description = "API du moteur de recherche d'articles scientifiques (INF5101, TP 
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "fastapi>=0.143",
-    "langchain-google-genai>=4.4.1",
+    "langchain-groq>=1.1.3",
     "langchain-pinecone>=0.2",
     "python-dotenv>=1.0",
     "uvicorn[standard]>=0.30",

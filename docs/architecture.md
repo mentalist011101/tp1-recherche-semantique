@@ -57,7 +57,7 @@ React 19, TypeScript, Vite, Tailwind CSS 4 et TanStack Query, avec la charte « 
 reprise de l'application précédente. Quatre pages :
 
 - **Recherche** : la question et les filtres vivent dans l'URL, une recherche est donc partageable ;
-- **Chat** : une réponse rédigée par Gemini Flash à partir des passages, citations cliquables vers
+- **Chat** : une réponse rédigée par gpt-oss-120b (Groq) à partir des passages, citations cliquables vers
   les sources ; la page de recherche y renvoie par un lien `/chat?q=…` ;
 - **Corpus** : les 50 articles, filtrables par langue, modalité et titre ;
 - **À propos** : la chaîne de traitement, les résultats de l'évaluation et les choix techniques.
@@ -67,6 +67,6 @@ reprise de l'application précédente. Quatre pages :
 Sur Vercel, l'API devient une fonction Python (point d'entrée `app/api/index.py`) et le front
 compilé est servi par le CDN grâce à `app.frontend()` de FastAPI. Aucun modèle ne tourne dans la
 fonction : les embeddings des questions sont calculés par Pinecone, les réponses du chat par
-l'API Gemini. Le `Dockerfile` produit la
+l'API Groq. Le `Dockerfile` produit la
 même application dans une image unique, pour un hébergeur de conteneurs. Voir
 [developpement.md](developpement.md).

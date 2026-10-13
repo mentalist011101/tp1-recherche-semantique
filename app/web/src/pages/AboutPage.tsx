@@ -20,7 +20,7 @@ const STEPS = [
 	{ title: "Passages", body: "Découpage LangChain par intertitres, puis 1 000 caractères" },
 	{ title: "Index", body: "multilingual-e5-large et Pinecone serverless, 1 024 dimensions" },
 	{ title: "Articles", body: "Meilleur passage de chaque article, seuil d'abstention" },
-	{ title: "Réponse", body: "Gemini Flash rédige à partir des passages et cite ses sources" },
+	{ title: "Réponse", body: "gpt-oss-120b (Groq) rédige à partir des passages et cite ses sources" },
 ];
 
 const DECISIONS = [
@@ -46,7 +46,7 @@ const DECISIONS = [
 	},
 	{
 		title: "Une réponse rédigée, des sources vérifiables",
-		body: "L'onglet Chat fait rédiger la réponse par Gemini Flash à partir des seuls passages retrouvés. Le modèle cite des numéros de passage ; titres, années et liens viennent des métadonnées, jamais du modèle, qui pourrait les inventer.",
+		body: "L'onglet Chat fait rédiger la réponse par gpt-oss-120b, servi par Groq, à partir des seuls passages retrouvés. Le modèle cite des numéros de passage ; titres, années et liens viennent des métadonnées, jamais du modèle, qui pourrait les inventer.",
 	},
 	{
 		title: "Savoir dire « rien dans ce corpus »",

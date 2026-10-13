@@ -11,7 +11,7 @@ from fastapi import Depends, FastAPI, HTTPException, Query, Request
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import StreamingResponse
 from langchain_core.language_models import BaseChatModel
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 from langchain_pinecone import PineconeEmbeddings, PineconeVectorStore
 from pydantic import BaseModel, Field
 
@@ -57,7 +57,7 @@ def create_app(
     articles = load_articles()
     settings = load_settings()
     # Chaque recherche consomme du quota d'embedding gratuit chez Pinecone, chaque réponse du
-    # quota gratuit de Gemini.
+    # quota gratuit de Groq.
     limiter = RateLimiter(capacity=20, refill_per_minute=20)
     chat_limiter = RateLimiter(capacity=6, refill_per_minute=6)
 
@@ -71,14 +71,12 @@ def create_app(
         else:
             app.state.store = store
         if llm is None:
-            # Température basse : une synthèse fidèle des passages, pas de la créativité. Réflexion
-            # minimale : synthétiser des passages n'en demande pas, et le premier mot arrive en
-            # environ 1,5 s au lieu de 6,5 s.
-            app.state.llm = ChatGoogleGenerativeAI(
-                model=settings.llm_model,
-                api_key=os.environ["GEMINI_API_KEY"],
-                temperature=0.2,
-                thinking_level="minimal",
+            # Température basse : une synthèse fidèle des passages, pas de la créativité.
+            # Raisonnement court : synthétiser des passages n'en demande pas beaucoup. Un seul
+            # nouvel essai : en cas de quota épuisé, mieux vaut un échec rapide qu'une attente.
+            # La clé est lue dans GROQ_API_KEY.
+            app.state.llm = ChatGroq(
+                model=settings.llm_model, temperature=0.2, reasoning_effort="low", max_retries=1
             )
         else:
             app.state.llm = llm
