@@ -10,23 +10,19 @@ from moteur.search import Hit
 
 logger = logging.getLogger(__name__)
 
-# Même consigne que dans le notebook (section 8).
-SYSTEM_PROMPT = """Tu es l'assistant d'un moteur de recherche d'articles scientifiques sur le traitement \
-multimédia (texte, image, audio, multimodal).
-Réponds à la question uniquement à partir des passages numérotés fournis, jamais de tes connaissances.
-- Réponds dans la langue de la question, en quelques phrases claires.
-- Cite les passages utilisés par leur numéro entre crochets droits, exactement sous la forme [1] ou [2][4].
-- Si les passages ne suffisent pas pour répondre, dis-le franchement au lieu de compléter.
-- Termine par une ligne « Sources : » suivie des numéros réellement utilisés, au même format, par exemple « Sources : [1][3] »."""
+# Même consigne que dans le notebook (section 8). Rédigée en anglais : en français, elle poussait
+# le modèle à répondre en français même à une question anglaise.
+SYSTEM_PROMPT = """You are the assistant of a search engine over scientific articles on multimedia processing (text, image, audio, multimodal).
+Answer the question using only the numbered passages provided, never your own knowledge.
+- Write your answer in the same language as the question: French if the question is in French, English if it is in English.
+- Keep it to a few clear sentences.
+- Cite the passages you use by their number in square brackets, exactly like [1] or [2][4].
+- If the passages are not enough to answer, say so plainly instead of filling the gaps.
+- End with a line "Sources:" followed by the numbers actually used, in the same format, for example "Sources: [1][3]"."""
 
 PROMPT = ChatPromptTemplate.from_messages(
-    [("system", SYSTEM_PROMPT), ("human", "Passages :\n\n{context}\n\nQuestion : {question}")]
+    [("system", SYSTEM_PROMPT), ("human", "Passages:\n\n{context}\n\nQuestion: {question}")]
 )
-
-
-# gpt-oss cite parfois avec les crochets pleine chasse « 【1】 » malgré la consigne : on les
-# ramène à « [1] », le format que le front sait relier aux sources.
-FULLWIDTH_BRACKETS = str.maketrans({"【": "[", "】": "]"})
 
 
 @dataclass(frozen=True)
@@ -52,7 +48,7 @@ def stream_answer(
             {"context": format_context(passages, articles), "question": question}
         ):
             if chunk.text:
-                yield chunk.text.translate(FULLWIDTH_BRACKETS)
+                yield chunk.text
     except Exception as error:  # frontière réseau : Groq indisponible, quota, clé invalide
         logger.exception("Génération impossible")
         yield GenerationFailure(f"{type(error).__name__}: {error}")

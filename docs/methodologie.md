@@ -99,6 +99,12 @@ reformulation à partir de l'historique.
 
 Choix du modèle : Gemini Flash avait été retenu d'abord, mais son offre gratuite plafonne à 20
 requêtes par jour, épuisées en une journée de tests ; au-delà, l'API réessaie pendant une
-trentaine de secondes puis échoue. gpt-oss-120b sur Groq répond en environ 2 secondes. Ce modèle
-cite parfois avec des crochets pleine chasse (« 【1】 ») malgré la consigne : ils sont ramenés à
-« [1] » avant affichage.
+trentaine de secondes puis échoue. gpt-oss-120b sur Groq répond en environ 2 secondes.
+
+Deux ajustements, constatés à l'usage :
+
+- **la consigne est rédigée en anglais** : rédigée en français, elle poussait le modèle à
+  répondre en français même à une question anglaise ;
+- **les citations sont normalisées** : malgré la consigne, gpt-oss cite parfois à sa manière
+  (« 【1】 », « [2†L1-L4] »). Toutes ces formes sont ramenées à « [1] » sur le texte complet, une
+  citation pouvant être coupée entre deux morceaux du flux.

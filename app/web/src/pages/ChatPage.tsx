@@ -112,7 +112,8 @@ export function ChatPage() {
 }
 
 function ExchangeView({ exchange }: { readonly exchange: Exchange }) {
-	const cited = new Set([...exchange.answer.matchAll(/\[(\d+)\]/g)].map((match) => Number(match[1])));
+	const answer = normalizeCitations(exchange.answer);
+	const cited = new Set([...answer.matchAll(/\[(\d+)\]/g)].map((match) => Number(match[1])));
 
 	return (
 		<article className="animate-fade-in">
@@ -151,7 +152,7 @@ function ExchangeView({ exchange }: { readonly exchange: Exchange }) {
 								),
 							}}
 						>
-							{withCitationLinks(exchange.answer, exchange.id)}
+							{withCitationLinks(answer, exchange.id)}
 						</Markdown>
 					</div>
 				)}
@@ -204,6 +205,12 @@ function SourceLine({
 			</a>
 		</li>
 	);
+}
+
+// gpt-oss cite parfois à sa manière malgré la consigne (« 【1】 », « [2†L1-L4] »). La normalisation
+// se fait sur le texte accumulé, car une citation peut être coupée entre deux morceaux du flux.
+function normalizeCitations(answer: string): string {
+	return answer.replace(/[【[](\d+)(?:†[^】\]]*)?[】\]]/g, "[$1]");
 }
 
 // Les citations « [2] » deviennent des liens vers la source correspondante, sous la réponse.
