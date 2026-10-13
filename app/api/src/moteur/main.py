@@ -71,9 +71,14 @@ def create_app(
         else:
             app.state.store = store
         if llm is None:
-            # Température basse : une synthèse fidèle des passages, pas de la créativité.
+            # Température basse : une synthèse fidèle des passages, pas de la créativité. Réflexion
+            # minimale : synthétiser des passages n'en demande pas, et le premier mot arrive en
+            # environ 1,5 s au lieu de 6,5 s.
             app.state.llm = ChatGoogleGenerativeAI(
-                model=settings.llm_model, api_key=os.environ["GEMINI_API_KEY"], temperature=0.2
+                model=settings.llm_model,
+                api_key=os.environ["GEMINI_API_KEY"],
+                temperature=0.2,
+                thinking_level="minimal",
             )
         else:
             app.state.llm = llm
