@@ -2,6 +2,8 @@
  "index": "inf5101-articles",
  "embedding_model": "multilingual-e5-large",
  "k_passages": 60,
+ "llm_model": "gemini-3.5-flash",
+ "rag_passages": 6,
  "abstention_threshold": 0.838,
  "passages": 1196,
  "evaluation": {
