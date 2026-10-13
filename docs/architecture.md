@@ -3,24 +3,11 @@
 Le projet sépare le travail **hors ligne**, fait une fois dans le notebook, du service **en
 ligne**, qui ne fait que l'exploiter.
 
-```mermaid
-flowchart TB
-    subgraph NB[Notebook, hors ligne]
-        S[selection.csv] --> PDF[data/pdf] --> MD[data/markdown] --> CH[1 196 passages]
-        CH -->|embeddings e5| PC[(Pinecone<br/>inf5101-articles)]
-        CH --> EV[Évaluation, analyse]
-        EV --> EX[app/api/data<br/>articles.json, settings.json]
-    end
-    subgraph APP[Application, en ligne]
-        WEB[Front React] -->|/api/search| API[FastAPI]
-        API -->|requête + filtres| PC
-        API --- EX
-    end
-```
+![Architecture du projet](images/architecture.png)
 
 ## Le notebook, source de vérité
 
-Il construit l'index Pinecone et exporte (section 8) ce dont l'application a besoin :
+Il construit l'index Pinecone et exporte (section 9) ce dont l'application a besoin :
 
 - `articles.json` : la fiche des 50 articles (titre, langue, modalité, année, pages, URL, résumé) ;
 - `settings.json` : nom de l'index, modèle, nombre de passages récupérés, seuil d'abstention et

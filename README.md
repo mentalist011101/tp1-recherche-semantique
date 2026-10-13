@@ -72,18 +72,7 @@ Détail et limites : [docs/evaluation.md](docs/evaluation.md).
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    subgraph Hors ligne : le notebook
-        P[50 PDF] --> M[Markdown<br/>pymupdf4llm] --> C[1 196 passages<br/>LangChain]
-        C --> I[(Pinecone<br/>e5-large, 1 024 d)]
-    end
-    subgraph En ligne : l'application
-        Q[Question] --> A[API FastAPI] --> I
-        I --> R[Meilleur passage<br/>par article] --> S{Score ≥ seuil}
-        S --> W[Front React]
-    end
-```
+![Architecture : hors ligne, le notebook construit l'index Pinecone ; en ligne, chaque question sert la recherche d'articles ou le chat](docs/images/architecture.png)
 
 | Couche | Technologies |
 | --- | --- |
