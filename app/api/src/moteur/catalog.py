@@ -41,6 +41,8 @@ class Settings(BaseModel):
     index: str
     embedding_model: str
     k_passages: int
+    llm_model: str
+    rag_passages: int
     abstention_threshold: float
     passages: int
     evaluation: Evaluation

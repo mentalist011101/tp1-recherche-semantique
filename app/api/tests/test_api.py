@@ -1,7 +1,11 @@
+import json
+from collections.abc import Iterator
 from typing import Any
 
 from fastapi.testclient import TestClient
 from langchain_core.documents import Document
+from langchain_core.language_models.fake_chat_models import GenericFakeChatModel
+from langchain_core.messages import AIMessage
 
 from moteur.main import create_app
 from moteur.search import SearchFailure, search_articles
@@ -56,27 +60,27 @@ def test_network_failure_is_returned_not_raised() -> None:
 
 
 def test_search_endpoint_abstains_below_threshold() -> None:
-    with TestClient(create_app(store=FakeStore([("D01", 0.80)]))) as client:
+    with TestClient(create_app(store=FakeStore([("D01", 0.80)]), llm=fake_llm())) as client:
         body = client.get("/api/search", params={"q": "recette du ndolé"}).json()
     assert body["abstained"] is True
     assert body["results"][0]["article"]["doc_id"] == "D01"
 
 
 def test_search_endpoint_answers_above_threshold() -> None:
-    with TestClient(create_app(store=FakeStore([("D21", 0.88)]))) as client:
+    with TestClient(create_app(store=FakeStore([("D21", 0.88)]), llm=fake_llm())) as client:
         body = client.get("/api/search", params={"q": "spoofing"}).json()
     assert body["abstained"] is False
     assert body["results"][0]["rank"] == 1
 
 
 def test_search_endpoint_reports_unavailability() -> None:
-    with TestClient(create_app(store=FakeStore([], fail=True))) as client:
+    with TestClient(create_app(store=FakeStore([], fail=True), llm=fake_llm())) as client:
         response = client.get("/api/search", params={"q": "spoofing"})
     assert response.status_code == 503
 
 
 def test_articles_endpoint_lists_the_corpus() -> None:
-    with TestClient(create_app(store=FakeStore([]))) as client:
+    with TestClient(create_app(store=FakeStore([]), llm=fake_llm())) as client:
         articles = client.get("/api/articles").json()
     assert len(articles) == 50
 
@@ -99,3 +103,40 @@ def test_passage_markdown_is_cleaned_for_display() -> None:
     hits = search_articles(store, "q", k_passages=60, k_articles=5)
     assert not isinstance(hits, SearchFailure)
     assert hits[0].passage == "Datasets. As in (Zhang et al., 2023)1 with snake_case"
+
+
+def fake_llm(
+    answer: str = "Le spoofing est détecté par une contre-mesure [1].",
+) -> GenericFakeChatModel:
+    return GenericFakeChatModel(messages=iter([AIMessage(content=answer)]))
+
+
+class FailingLlm(GenericFakeChatModel):
+    def _stream(self, *args: Any, **kwargs: Any) -> Iterator[Any]:
+        raise ConnectionError("Gemini injoignable")
+
+
+def chat_events(store: FakeStore, llm: GenericFakeChatModel) -> list[dict[str, Any]]:
+    with TestClient(create_app(store=store, llm=llm)) as client:
+        response = client.post("/api/chat", json={"question": "Comment détecter le spoofing ?"})
+    return [json.loads(line) for line in response.text.splitlines()]
+
+
+def test_chat_streams_sources_then_answer() -> None:
+    events = chat_events(FakeStore([("D21", 0.88), ("D20", 0.85)]), fake_llm())
+    assert events[0]["type"] == "sources"
+    assert [p["number"] for p in events[0]["passages"]] == [1, 2]
+    answer = "".join(e["text"] for e in events if e["type"] == "token")
+    assert answer == "Le spoofing est détecté par une contre-mesure [1]."
+    assert events[-1]["type"] == "done"
+
+
+def test_chat_does_not_call_the_model_below_threshold() -> None:
+    events = chat_events(FakeStore([("D01", 0.80)]), FailingLlm(messages=iter([])))
+    assert events[0]["abstained"] is True
+    assert [e["type"] for e in events] == ["sources", "done"]
+
+
+def test_chat_reports_generation_failure() -> None:
+    events = chat_events(FakeStore([("D21", 0.88)]), FailingLlm(messages=iter([])))
+    assert events[-1] == {"type": "error", "message": "La génération de la réponse a échoué."}

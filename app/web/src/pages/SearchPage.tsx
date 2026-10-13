@@ -93,9 +93,17 @@ export function SearchPage() {
 				)}
 				{searched.data && (
 					<section aria-label="Articles retrouvés" className="space-y-4">
-						<div className="flex items-baseline justify-between gap-3 border-t border-rule pt-6">
+						<div className="flex flex-wrap items-baseline justify-between gap-3 border-t border-rule pt-6">
 							<h2 className="font-display text-xl font-extrabold tracking-tight">Articles à lire</h2>
-							<p className="label-mono text-ink-faint">{searched.data.results.length} articles</p>
+							<div className="flex items-center gap-4">
+								{!searched.data.abstained && (
+									<Button to={`/chat?q=${encodeURIComponent(query)}`} variant="outline" size="sm">
+										Obtenir une réponse rédigée
+										<ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+									</Button>
+								)}
+								<p className="label-mono text-ink-faint">{searched.data.results.length} articles</p>
+							</div>
 						</div>
 						{searched.data.results.length === 0 && (
 							<p className="text-sm text-ink-soft">Aucun article ne correspond à ces filtres.</p>

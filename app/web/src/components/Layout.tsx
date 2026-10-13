@@ -12,6 +12,7 @@ import { GithubIcon } from "./ui.js";
 
 const NAVIGATION = [
 	{ to: "/", label: "Recherche" },
+	{ to: "/chat", label: "Chat" },
 	{ to: "/corpus", label: "Corpus" },
 	{ to: "/a-propos", label: "À propos" },
 ] as const;
@@ -177,6 +178,7 @@ function Footer() {
 							<Stat label="Passages" value={String(stats.data.settings.passages)} />
 							<Stat label="Embeddings" value={stats.data.settings.embedding_model} />
 							<Stat label="Base vectorielle" value={`Pinecone · ${stats.data.settings.index}`} />
+							<Stat label="Génération" value={stats.data.settings.llm_model} />
 						</dl>
 					) : (
 						<p className="mt-4 text-sm text-ink-faint">…</p>
@@ -210,7 +212,7 @@ function Footer() {
 			<div className="border-t border-rule">
 				<div className="shell flex flex-col gap-3 py-6 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
 					<p>Corpus : 50 articles en accès libre sur arXiv et HAL, consultables chez leurs auteurs.</p>
-					<p className="font-mono">LangChain · Pinecone · FastAPI · React</p>
+					<p className="font-mono">LangChain · Pinecone · Gemini · FastAPI · React</p>
 				</div>
 			</div>
 		</footer>

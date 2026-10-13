@@ -76,3 +76,23 @@ Sous un seuil de similarité, le moteur prévient qu'aucun article du corpus ne 
 sujet. Le seuil (0,838) est celui qui maximise la justesse équilibrée entre questions hors corpus
 refusées et questions avec réponse acceptées. Les limites de ce seuil sont discutées dans
 [evaluation.md](evaluation.md).
+
+## 8. Génération augmentée (RAG)
+
+L'onglet Chat et la section 8 du notebook font rédiger une réponse par Gemini Flash (température
+0,2) à partir des 6 passages les plus proches de la question, présentés avec leur article, leur
+année, leur langue et leur section. La consigne impose de répondre uniquement à partir de ces
+passages, dans la langue de la question, de citer les passages par numéro (`[2]`) et de dire
+franchement quand ils ne suffisent pas.
+
+Deux garde-fous :
+
+- **sous le seuil d'abstention, le modèle n'est pas appelé** : la question reçoit directement
+  « aucun article de ce corpus ne traite ce sujet ». Pas de réponse inventée possible, pas de
+  quota consommé ;
+- **les sources affichées viennent des métadonnées** : le modèle ne cite que des numéros, et
+  l'application associe chaque numéro au titre, à la section et au lien de l'article. Un titre ou
+  une année écrits par un LLM pourraient être inventés.
+
+Les questions sont indépendantes : chaque question déclenche sa propre recherche, sans
+reformulation à partir de l'historique.

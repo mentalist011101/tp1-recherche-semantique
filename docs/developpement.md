@@ -3,11 +3,12 @@
 ## Prérequis
 
 - [uv](https://docs.astral.sh/uv/) et Python 3.12, Node 22 et pnpm ;
-- un compte [Pinecone](https://www.pinecone.io) (l'offre gratuite suffit) et sa clé dans un
-  fichier `.env` à la racine, ignoré par Git :
+- un compte [Pinecone](https://www.pinecone.io) et une clé [Gemini](https://aistudio.google.com/apikey)
+  (les offres gratuites suffisent), dans un fichier `.env` à la racine, ignoré par Git :
 
 ```bash
 PINECONE_API_KEY=...
+GEMINI_API_KEY=...      # https://aistudio.google.com/apikey, offre gratuite
 ```
 
 ## Le notebook
@@ -43,8 +44,9 @@ cd app/web && pnpm lint && pnpm build
 uvx ruff check notebooks scripts
 ```
 
-Les tests de l'API remplacent Pinecone par un faux index : ils couvrent le regroupement par
-article, les filtres, le nettoyage du Markdown, l'abstention et la gestion d'une panne, sans
+Les tests de l'API remplacent Pinecone et Gemini par des faux : ils couvrent le regroupement par
+article, les filtres, le nettoyage du Markdown, l'abstention, le flux du chat (y compris l'absence
+d'appel au modèle sous le seuil) et la gestion d'une panne, sans
 réseau ni clé.
 
 La CI GitHub Actions lance ces trois vérifications. Elle ne réexécute pas le notebook, qui
@@ -58,12 +60,14 @@ L'application est une seule fonction Python Vercel (FastAPI) qui sert aussi le f
 - `app/api/vercel.json` compile le front (`app/web`) et copie le résultat dans `app/api/dist`,
   que `app.frontend()` sert depuis le CDN de Vercel, avec repli sur `index.html` pour les routes
   du front (`/corpus`, `/a-propos`) ;
-- la clé Pinecone est une variable d'environnement du projet Vercel, `PINECONE_API_KEY`.
+- les clés sont des variables d'environnement secrètes du projet Vercel : `PINECONE_API_KEY` et
+  `GEMINI_API_KEY`.
 
 ```bash
 npx vercel login
 npx vercel link                      # projet Vercel, dossier racine : app/api
 npx vercel env add PINECONE_API_KEY production
+npx vercel env add GEMINI_API_KEY production
 npx vercel deploy --prod
 ```
 

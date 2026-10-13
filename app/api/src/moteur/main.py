@@ -1,6 +1,7 @@
+import json
 import os
 import time
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Iterator
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Annotated
@@ -8,12 +9,16 @@ from typing import Annotated
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException, Query, Request
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.responses import StreamingResponse
+from langchain_core.language_models import BaseChatModel
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_pinecone import PineconeEmbeddings, PineconeVectorStore
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from moteur.catalog import Article, Language, Modality, Settings, load_articles, load_settings
+from moteur.rag import GenerationFailure, stream_answer
 from moteur.ratelimit import RateLimiter
-from moteur.search import SearchFailure, VectorStore, search_articles
+from moteur.search import SearchFailure, VectorStore, search_articles, search_passages
 
 
 class ArticleHit(BaseModel):
@@ -38,21 +43,40 @@ class Stats(BaseModel):
     settings: Settings
 
 
-def create_app(store: VectorStore | None = None, static_dir: Path | None = None) -> FastAPI:
+class ChatRequest(BaseModel):
+    question: str = Field(min_length=2, max_length=500)
+    langue: Language | None = None
+    modalite: Modality | None = None
+
+
+def create_app(
+    store: VectorStore | None = None,
+    llm: BaseChatModel | None = None,
+    static_dir: Path | None = None,
+) -> FastAPI:
     articles = load_articles()
     settings = load_settings()
-    # Chaque recherche consomme du quota d'embedding gratuit chez Pinecone.
+    # Chaque recherche consomme du quota d'embedding gratuit chez Pinecone, chaque réponse du
+    # quota gratuit de Gemini.
     limiter = RateLimiter(capacity=20, refill_per_minute=20)
+    chat_limiter = RateLimiter(capacity=6, refill_per_minute=6)
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+        # En local, les clés viennent du .env à la racine du dépôt ; sur Vercel, de secrets.
+        load_dotenv(Path(__file__).resolve().parents[4] / ".env")
         if store is None:
-            # En local, la clé vient du .env à la racine du dépôt ; sur le Space, d'un secret.
-            load_dotenv(Path(__file__).resolve().parents[4] / ".env")
             embeddings = PineconeEmbeddings(model=settings.embedding_model)
             app.state.store = PineconeVectorStore(index_name=settings.index, embedding=embeddings)
         else:
             app.state.store = store
+        if llm is None:
+            # Température basse : une synthèse fidèle des passages, pas de la créativité.
+            app.state.llm = ChatGoogleGenerativeAI(
+                model=settings.llm_model, api_key=os.environ["GEMINI_API_KEY"], temperature=0.2
+            )
+        else:
+            app.state.llm = llm
         yield
 
     app = FastAPI(
@@ -111,6 +135,52 @@ def create_app(store: VectorStore | None = None, static_dir: Path | None = None)
             elapsed_ms=round((time.perf_counter() - start) * 1000, 1),
         )
 
+    @app.post("/api/chat", dependencies=[Depends(chat_limiter.check)])
+    def chat(request: Request, body: ChatRequest) -> StreamingResponse:
+        passages = search_passages(
+            request.app.state.store,
+            body.question,
+            k=settings.rag_passages,
+            langue=body.langue,
+            modalite=body.modalite,
+        )
+        if isinstance(passages, SearchFailure):
+            raise HTTPException(503, "Le moteur de recherche est momentanément indisponible.")
+        best = passages[0].score if passages else None
+        abstained = best is None or best < settings.abstention_threshold
+
+        # Une ligne JSON par événement : d'abord les sources, puis la réponse morceau par
+        # morceau, pour que le front affiche le texte à mesure qu'il est généré.
+        def events() -> Iterator[str]:
+            yield _event(
+                type="sources",
+                abstained=abstained,
+                best_score=best,
+                threshold=settings.abstention_threshold,
+                passages=[
+                    {
+                        "number": number,
+                        "score": round(hit.score, 4),
+                        "section": hit.section,
+                        "passage": hit.passage,
+                        "article": articles[hit.doc_id].model_dump(),
+                    }
+                    for number, hit in enumerate(passages, 1)
+                ],
+            )
+            # Sous le seuil, le modèle n'est pas appelé : pas de réponse inventée possible.
+            if abstained:
+                yield _event(type="done")
+                return
+            for piece in stream_answer(request.app.state.llm, body.question, passages, articles):
+                if isinstance(piece, GenerationFailure):
+                    yield _event(type="error", message="La génération de la réponse a échoué.")
+                    return
+                yield _event(type="token", text=piece)
+            yield _event(type="done")
+
+        return StreamingResponse(events(), media_type="application/x-ndjson")
+
     if static_dir is not None:
         # Les routes du front (React Router, ex. /corpus) n'existent pas côté serveur : une
         # navigation vers un chemin inconnu reçoit index.html. Sur Vercel, ces fichiers sont
@@ -122,3 +192,7 @@ def create_app(store: VectorStore | None = None, static_dir: Path | None = None)
 def build() -> FastAPI:
     static = os.environ.get("MOTEUR_STATIC_DIR")
     return create_app(static_dir=Path(static) if static else None)
+
+
+def _event(**fields: object) -> str:
+    return json.dumps(fields, ensure_ascii=False) + "\n"

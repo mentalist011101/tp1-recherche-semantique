@@ -1,4 +1,4 @@
-import type { Article, SearchFilters, SearchResponse, Stats } from "./types.js";
+import type { Article, ChatEvent, SearchFilters, SearchResponse, Stats } from "./types.js";
 
 export class ApiError extends Error {
 	readonly status: number;
@@ -19,6 +19,31 @@ export const api = {
 		return get<SearchResponse>(`/api/search?${params}`);
 	},
 };
+
+// La réponse arrive en NDJSON : une ligne JSON par événement (sources, morceau de texte, fin).
+export async function* chat(question: string, signal: AbortSignal): AsyncGenerator<ChatEvent> {
+	const response = await fetch("/api/chat", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ question }),
+		signal,
+	});
+	if (!response.ok || !response.body) {
+		throw new ApiError(response.status, await errorMessage(response));
+	}
+	const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
+	let buffer = "";
+	for (;;) {
+		const { value, done } = await reader.read();
+		if (done) break;
+		buffer += value;
+		const lines = buffer.split("\n");
+		buffer = lines.pop() ?? "";
+		for (const line of lines) {
+			if (line.trim()) yield withoutNulls(JSON.parse(line)) as ChatEvent;
+		}
+	}
+}
 
 async function get<T>(path: string): Promise<T> {
 	const response = await fetch(path);

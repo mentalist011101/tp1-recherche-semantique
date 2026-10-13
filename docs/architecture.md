@@ -35,12 +35,14 @@ réglages de l'application suivent.
 | --- | --- |
 | `catalog.py` | Charge et valide `articles.json` et `settings.json` (Pydantic) |
 | `search.py` | Interroge Pinecone, regroupe les passages par article, nettoie le Markdown pour l'affichage |
-| `ratelimit.py` | Limite chaque visiteur à 20 recherches par minute, pour protéger le quota gratuit |
+| `rag.py` | Consigne du modèle (identique au notebook), mise en forme des passages, génération en flux |
+| `ratelimit.py` | Limite chaque visiteur à 20 recherches et 6 questions au chat par minute, pour protéger les quotas gratuits |
 | `main.py` | Routes, et service du front compilé (`app.frontend()`) en production |
 
 | Route | Réponse |
 | --- | --- |
 | `GET /api/search?q=…&langue=fr&modalite=audio&k=5` | Articles classés, meilleur passage de chacun, score, seuil, abstention |
+| `POST /api/chat` | Flux NDJSON : les passages sources, puis la réponse morceau par morceau, puis la fin (ou une erreur) |
 | `GET /api/articles` | Les 50 fiches |
 | `GET /api/stats` | Réglages et résultats d'évaluation |
 | `GET /api/docs` | Documentation OpenAPI |
@@ -52,9 +54,11 @@ résultat typé (`SearchFailure`), que la route traduit en 503.
 ## Le front (`app/web`)
 
 React 19, TypeScript, Vite, Tailwind CSS 4 et TanStack Query, avec la charte « bureau papier »
-reprise de l'application précédente. Trois pages :
+reprise de l'application précédente. Quatre pages :
 
 - **Recherche** : la question et les filtres vivent dans l'URL, une recherche est donc partageable ;
+- **Chat** : une réponse rédigée par Gemini Flash à partir des passages, citations cliquables vers
+  les sources ; la page de recherche y renvoie par un lien `/chat?q=…` ;
 - **Corpus** : les 50 articles, filtrables par langue, modalité et titre ;
 - **À propos** : la chaîne de traitement, les résultats de l'évaluation et les choix techniques.
 
@@ -62,6 +66,7 @@ reprise de l'application précédente. Trois pages :
 
 Sur Vercel, l'API devient une fonction Python (point d'entrée `app/api/index.py`) et le front
 compilé est servi par le CDN grâce à `app.frontend()` de FastAPI. Aucun modèle ne tourne dans la
-fonction : les embeddings des questions sont calculés par Pinecone. Le `Dockerfile` produit la
+fonction : les embeddings des questions sont calculés par Pinecone, les réponses du chat par
+l'API Gemini. Le `Dockerfile` produit la
 même application dans une image unique, pour un hébergeur de conteneurs. Voir
 [developpement.md](developpement.md).

@@ -180,3 +180,14 @@ export function NodeMark({ className }: { readonly className?: string }) {
 		</svg>
 	);
 }
+
+export function ThinkingDots({ label }: { readonly label: string }) {
+	return (
+		<span className="inline-flex items-center gap-1.5">
+			{[0, 1, 2].map((dot) => (
+				<span key={dot} className="thinking-dot h-1.5 w-1.5 rounded-full bg-current" style={{ animationDelay: `${dot * 160}ms` }} />
+			))}
+			<span className="sr-only">{label}</span>
+		</span>
+	);
+}

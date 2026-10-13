@@ -33,12 +33,11 @@ class SearchFailure:
     reason: str
 
 
-def search_articles(
+def search_passages(
     store: VectorStore,
     question: str,
     *,
-    k_passages: int,
-    k_articles: int,
+    k: int,
     langue: Language | None = None,
     modalite: Modality | None = None,
 ) -> list[Hit] | SearchFailure:
@@ -48,23 +47,36 @@ def search_articles(
         if value is not None
     }
     try:
-        results = store.similarity_search_with_score(
-            question, k=k_passages, filter=conditions or None
-        )
+        results = store.similarity_search_with_score(question, k=k, filter=conditions or None)
     except Exception as error:  # frontière réseau : Pinecone indisponible, quota, clé invalide
         logger.exception("Recherche Pinecone impossible")
         return SearchFailure(f"{type(error).__name__}: {error}")
+    return [
+        Hit(
+            doc_id=doc.metadata["doc_id"],
+            score=score,
+            section=doc.metadata["section"],
+            passage=MARKDOWN_NOISE_RE.sub("", doc.page_content.split("\n\n", 1)[-1]),
+        )
+        for doc, score in results
+    ]
 
-    hits: dict[str, Hit] = {}
-    for doc, score in results:
-        doc_id = doc.metadata["doc_id"]
+
+def search_articles(
+    store: VectorStore,
+    question: str,
+    *,
+    k_passages: int,
+    k_articles: int,
+    langue: Language | None = None,
+    modalite: Modality | None = None,
+) -> list[Hit] | SearchFailure:
+    passages = search_passages(store, question, k=k_passages, langue=langue, modalite=modalite)
+    if isinstance(passages, SearchFailure):
+        return passages
+    best: dict[str, Hit] = {}
+    for hit in passages:
         # Les passages arrivent du plus proche au moins proche : le premier vu pour un article
         # est son meilleur passage, et son score devient celui de l'article.
-        if doc_id not in hits:
-            hits[doc_id] = Hit(
-                doc_id=doc_id,
-                score=score,
-                section=doc.metadata["section"],
-                passage=MARKDOWN_NOISE_RE.sub("", doc.page_content.split("\n\n", 1)[-1]),
-            )
-    return list(hits.values())[:k_articles]
+        best.setdefault(hit.doc_id, hit)
+    return list(best.values())[:k_articles]

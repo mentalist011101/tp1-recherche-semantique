@@ -20,6 +20,7 @@ const STEPS = [
 	{ title: "Passages", body: "Découpage LangChain par intertitres, puis 1 000 caractères" },
 	{ title: "Index", body: "multilingual-e5-large et Pinecone serverless, 1 024 dimensions" },
 	{ title: "Articles", body: "Meilleur passage de chaque article, seuil d'abstention" },
+	{ title: "Réponse", body: "Gemini Flash rédige à partir des passages et cite ses sources" },
 ];
 
 const DECISIONS = [
@@ -44,8 +45,12 @@ const DECISIONS = [
 		body: "L'analyse des erreurs a révélé des passages réduits à un numéro de page, dont l'embedding se résumait au titre de l'article. Les passages de moins de 20 mots sont désormais écartés.",
 	},
 	{
+		title: "Une réponse rédigée, des sources vérifiables",
+		body: "L'onglet Chat fait rédiger la réponse par Gemini Flash à partir des seuls passages retrouvés. Le modèle cite des numéros de passage ; titres, années et liens viennent des métadonnées, jamais du modèle, qui pourrait les inventer.",
+	},
+	{
 		title: "Savoir dire « rien dans ce corpus »",
-		body: "Sous un seuil de similarité mesuré sur les questions hors corpus, le moteur prévient que les résultats ne sont sans doute pas pertinents. Les scores e5 étant tassés, ce seuil reste fragile.",
+		body: "Sous un seuil de similarité mesuré sur les questions hors corpus, le moteur prévient que les résultats ne sont sans doute pas pertinents, et le chat n'interroge pas le modèle. Les scores e5 étant tassés, ce seuil reste fragile.",
 	},
 ];
 
@@ -90,7 +95,7 @@ export function AboutPage() {
 				<div className="px-5 sm:px-8">
 					<p className="eyebrow text-white/60">Du PDF à la réponse</p>
 					<h2 className="mt-2 text-[clamp(1.6rem,3.6vw,2.4rem)] leading-tight text-white">La chaîne de traitement</h2>
-					<ol className="mt-10 grid gap-4 sm:grid-cols-5">
+					<ol className="mt-10 grid gap-4 sm:grid-cols-3 lg:grid-cols-6">
 						{STEPS.map((step, index) => (
 							<li key={step.title} className="border-t border-white/15 pt-4">
 								<p className="font-mono text-[0.6875rem] text-sun">{String(index + 1).padStart(2, "0")}</p>
