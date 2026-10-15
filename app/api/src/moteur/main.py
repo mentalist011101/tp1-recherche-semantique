@@ -13,12 +13,13 @@ from fastapi.responses import StreamingResponse
 from langchain_core.language_models import BaseChatModel
 from langchain_groq import ChatGroq
 from langchain_pinecone import PineconeEmbeddings, PineconeVectorStore
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
+from moteur.arithmetic import Sign, Term, compute
 from moteur.catalog import Article, Language, Modality, Settings, load_articles, load_settings
 from moteur.rag import GenerationFailure, stream_answer
 from moteur.ratelimit import RateLimiter
-from moteur.search import SearchFailure, VectorStore, search_articles, search_passages
+from moteur.search import Hit, SearchFailure, VectorStore, search_articles, search_passages
 
 
 class ArticleHit(BaseModel):
@@ -41,6 +42,34 @@ class SearchResponse(BaseModel):
 class Stats(BaseModel):
     articles: int
     settings: Settings
+
+
+class TermIn(BaseModel):
+    sign: Sign
+    text: str = Field(min_length=1, max_length=80)
+
+
+class ArithmeticRequest(BaseModel):
+    terms: list[TermIn] = Field(min_length=2, max_length=4)
+
+    @field_validator("terms")
+    @classmethod
+    def starts_with_addition(cls, terms: list[TermIn]) -> list[TermIn]:
+        if terms[0].sign != "+":
+            raise ValueError("Le premier terme doit être ajouté (+).")
+        return terms
+
+
+class TermResult(BaseModel):
+    sign: Sign
+    text: str
+    best: ArticleHit
+
+
+class ArithmeticResponse(BaseModel):
+    results: list[ArticleHit]
+    alone: list[TermResult]
+    excluded: Article | None
 
 
 class ChatRequest(BaseModel):
@@ -136,6 +165,35 @@ def create_app(
             threshold=settings.abstention_threshold,
             abstained=best is None or best < settings.abstention_threshold,
             elapsed_ms=round((time.perf_counter() - start) * 1000, 1),
+        )
+
+    @app.post("/api/arithmetic", dependencies=[Depends(limiter.check)])
+    def arithmetic(request: Request, body: ArithmeticRequest) -> ArithmeticResponse:
+        outcome = compute(
+            request.app.state.store,
+            [Term(sign=term.sign, text=term.text) for term in body.terms],
+            k_passages=settings.k_passages,
+            k_articles=5,
+        )
+        if isinstance(outcome, SearchFailure):
+            raise HTTPException(503, "Le moteur de recherche est momentanément indisponible.")
+
+        def to_hit(rank: int, hit: Hit) -> ArticleHit:
+            return ArticleHit(
+                rank=rank,
+                score=round(hit.score, 4),
+                section=hit.section,
+                passage=hit.passage,
+                article=articles[hit.doc_id],
+            )
+
+        return ArithmeticResponse(
+            results=[to_hit(rank, hit) for rank, hit in enumerate(outcome.results, 1)],
+            alone=[
+                TermResult(sign=term.sign, text=term.text, best=to_hit(1, hit))
+                for term, hit in zip(body.terms, outcome.alone, strict=True)
+            ],
+            excluded=articles[outcome.excluded] if outcome.excluded else None,
         )
 
     @app.post("/api/chat", dependencies=[Depends(chat_limiter.check)])

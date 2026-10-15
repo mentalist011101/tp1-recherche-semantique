@@ -13,6 +13,7 @@ import { GithubIcon } from "./ui.js";
 const NAVIGATION = [
 	{ to: "/", label: "Recherche" },
 	{ to: "/chat", label: "Chat" },
+	{ to: "/arithmetique", label: "Arithmétique" },
 	{ to: "/corpus", label: "Corpus" },
 	{ to: "/a-propos", label: "À propos" },
 ] as const;

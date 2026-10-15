@@ -22,6 +22,7 @@ réglages de l'application suivent.
 | --- | --- |
 | `catalog.py` | Charge et valide `articles.json` et `settings.json` (Pydantic) |
 | `search.py` | Interroge Pinecone, regroupe les passages par article, nettoie le Markdown pour l'affichage |
+| `arithmetic.py` | Arithmétique sémantique : additionne et soustrait les embeddings des termes, cherche l'article le plus proche du vecteur obtenu |
 | `rag.py` | Consigne du modèle (identique au notebook), mise en forme des passages, génération en flux |
 | `ratelimit.py` | Limite chaque visiteur à 20 recherches et 6 questions au chat par minute, pour protéger les quotas gratuits |
 | `main.py` | Routes, et service du front compilé (`app.frontend()`) en production |
@@ -29,6 +30,7 @@ réglages de l'application suivent.
 | Route | Réponse |
 | --- | --- |
 | `GET /api/search?q=…&langue=fr&modalite=audio&k=5` | Articles classés, meilleur passage de chacun, score, seuil, abstention |
+| `POST /api/arithmetic` | Articles les plus proches d'une combinaison de termes (+/−), meilleur article de chaque terme seul, article de départ exclu |
 | `POST /api/chat` | Flux NDJSON : les passages sources, puis la réponse morceau par morceau, puis la fin (ou une erreur) |
 | `GET /api/articles` | Les 50 fiches |
 | `GET /api/stats` | Réglages et résultats d'évaluation |
@@ -41,11 +43,13 @@ résultat typé (`SearchFailure`), que la route traduit en 503.
 ## Le front (`app/web`)
 
 React 19, TypeScript, Vite, Tailwind CSS 4 et TanStack Query, avec la charte « bureau papier »
-reprise de l'application précédente. Quatre pages :
+reprise de l'application précédente. Cinq pages :
 
 - **Recherche** : la question et les filtres vivent dans l'URL, une recherche est donc partageable ;
 - **Chat** : une réponse rédigée par gpt-oss-120b (Groq) à partir des passages, citations cliquables vers
   les sources ; la page de recherche y renvoie par un lien `/chat?q=…` ;
+- **Arithmétique** : on combine des idées (« speech recognition − audio + image ») et le moteur
+  cherche l'article le plus proche du vecteur obtenu, en montrant ce que chaque terme trouvait seul ;
 - **Corpus** : les 50 articles, filtrables par langue, modalité et titre ;
 - **À propos** : la chaîne de traitement, les résultats de l'évaluation et les choix techniques.
 

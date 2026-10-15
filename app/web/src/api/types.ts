@@ -81,3 +81,16 @@ export type ChatEvent =
 	| { readonly type: "token"; readonly text: string }
 	| { readonly type: "error"; readonly message: string }
 	| { readonly type: "done" };
+
+export type Sign = "+" | "-";
+
+export interface ArithmeticTerm {
+	readonly sign: Sign;
+	readonly text: string;
+}
+
+export interface ArithmeticResponse {
+	readonly results: readonly ArticleHit[];
+	readonly alone: readonly (ArithmeticTerm & { readonly best: ArticleHit })[];
+	readonly excluded: Article | undefined;
+}

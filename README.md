@@ -16,7 +16,9 @@ Un étudiant pose une question, en français ou en anglais ; le moteur lui indiq
 lire parmi 50 articles scientifiques sur le texte, l'image, l'audio et le multimodal, avec le
 passage qui justifie chaque résultat. Une question française trouve un article anglais, et le
 moteur prévient quand aucun article ne traite le sujet. Un onglet Chat fait rédiger la réponse par
-gpt-oss-120b (servi par Groq) à partir des passages retrouvés (RAG), sources citées.
+gpt-oss-120b (servi par Groq) à partir des passages retrouvés (RAG), sources citées, et un onglet Arithmétique joue avec les
+vecteurs : « speech recognition − audio + image » mène à l'article sur la reconnaissance de
+caractères.
 
 ## Le sujet
 

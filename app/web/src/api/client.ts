@@ -1,4 +1,12 @@
-import type { Article, ChatEvent, SearchFilters, SearchResponse, Stats } from "./types.js";
+import type {
+	ArithmeticResponse,
+	ArithmeticTerm,
+	Article,
+	ChatEvent,
+	SearchFilters,
+	SearchResponse,
+	Stats,
+} from "./types.js";
 
 export class ApiError extends Error {
 	readonly status: number;
@@ -18,6 +26,7 @@ export const api = {
 		if (filters.modalite) params.set("modalite", filters.modalite);
 		return get<SearchResponse>(`/api/search?${params}`);
 	},
+	arithmetic: (terms: readonly ArithmeticTerm[]) => post<ArithmeticResponse>("/api/arithmetic", { terms }),
 };
 
 // La réponse arrive en NDJSON : une ligne JSON par événement (sources, morceau de texte, fin).
@@ -46,7 +55,16 @@ export async function* chat(question: string, signal: AbortSignal): AsyncGenerat
 }
 
 async function get<T>(path: string): Promise<T> {
-	const response = await fetch(path);
+	return parse<T>(await fetch(path));
+}
+
+async function post<T>(path: string, body: unknown): Promise<T> {
+	return parse<T>(
+		await fetch(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }),
+	);
+}
+
+async function parse<T>(response: Response): Promise<T> {
 	if (!response.ok) {
 		throw new ApiError(response.status, await errorMessage(response));
 	}

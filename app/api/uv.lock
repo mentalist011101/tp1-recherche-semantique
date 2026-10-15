@@ -523,6 +523,7 @@ dependencies = [
     { name = "fastapi" },
     { name = "langchain-groq" },
     { name = "langchain-pinecone" },
+    { name = "numpy" },
     { name = "python-dotenv" },
     { name = "uvicorn", extra = ["standard"] },
 ]
@@ -539,6 +540,7 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.143" },
     { name = "langchain-groq", specifier = ">=1.1.3" },
     { name = "langchain-pinecone", specifier = ">=0.2" },
+    { name = "numpy", specifier = ">=2.5.3" },
     { name = "python-dotenv", specifier = ">=1.0" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.30" },
 ]

@@ -1,6 +1,6 @@
 import json
 from collections.abc import Iterator
-from typing import Any
+from typing import Any, ClassVar
 
 from fastapi.testclient import TestClient
 from langchain_core.documents import Document
@@ -140,3 +140,79 @@ def test_chat_does_not_call_the_model_below_threshold() -> None:
 def test_chat_reports_generation_failure() -> None:
     events = chat_events(FakeStore([("D21", 0.88)]), FailingLlm(messages=iter([])))
     assert events[-1] == {"type": "error", "message": "La génération de la réponse a échoué."}
+
+
+class VectorFakeStore(FakeStore):
+    # Trois axes : « reconnaissance », « audio », « image ». La reconnaissance de la parole est
+    # reconnaissance + audio, l'OCR reconnaissance + image.
+    TERMS: ClassVar[dict[str, list[float]]] = {
+        "speech recognition": [1, 1, 0],
+        "audio": [0, 1, 0],
+        "image": [0, 0, 1],
+    }
+    PASSAGES: ClassVar[dict[str, list[float]]] = {
+        "D20": [1, 1, 0],
+        "D16": [1, 0, 1],
+        "D10": [0, 0.2, 1],
+        "D34": [0, 1, 0.1],
+    }
+
+    def __init__(self, fail: bool = False) -> None:
+        super().__init__([], fail=fail)
+
+    @property
+    def embeddings(self) -> "VectorFakeStore":
+        return self
+
+    def embed_query(self, text: str) -> list[float]:
+        if self.fail:
+            raise ConnectionError("Pinecone injoignable")
+        return self.TERMS[text]
+
+    def similarity_search_by_vector_with_score(
+        self, embedding: list[float], *, k: int = 4, **kwargs: Any
+    ) -> list[tuple[Document, float]]:
+        def cosine(vector: list[float]) -> float:
+            dot = sum(a * b for a, b in zip(embedding, vector, strict=True))
+            norm = sum(a * a for a in vector) ** 0.5 * sum(b * b for b in embedding) ** 0.5
+            return dot / norm
+
+        ranked = sorted(self.PASSAGES.items(), key=lambda item: cosine(item[1]), reverse=True)
+        return [
+            (
+                Document(
+                    page_content=f"T › S\n\n{doc_id}", metadata={"doc_id": doc_id, "section": "S"}
+                ),
+                cosine(v),
+            )
+            for doc_id, v in ranked[:k]
+        ]
+
+
+def arithmetic(terms: list[tuple[str, str]], store: VectorFakeStore | None = None) -> Any:
+    with TestClient(create_app(store=store or VectorFakeStore(), llm=fake_llm())) as client:
+        return client.post(
+            "/api/arithmetic", json={"terms": [{"sign": s, "text": t} for s, t in terms]}
+        )
+
+
+def test_analogy_lands_on_the_expected_article_and_excludes_the_start() -> None:
+    body = arithmetic([("+", "speech recognition"), ("-", "audio"), ("+", "image")]).json()
+    assert body["results"][0]["article"]["doc_id"] == "D16"
+    assert body["excluded"]["doc_id"] == "D20"
+    assert [t["best"]["article"]["doc_id"] for t in body["alone"]] == ["D20", "D34", "D10"]
+
+
+def test_pure_addition_excludes_nothing() -> None:
+    body = arithmetic([("+", "speech recognition"), ("+", "audio")]).json()
+    assert body["excluded"] is None
+    assert body["results"][0]["article"]["doc_id"] == "D20"
+
+
+def test_first_term_must_be_added() -> None:
+    assert arithmetic([("-", "audio"), ("+", "image")]).status_code == 422
+
+
+def test_arithmetic_reports_unavailability() -> None:
+    response = arithmetic([("+", "speech recognition"), ("+", "audio")], VectorFakeStore(fail=True))
+    assert response.status_code == 503
